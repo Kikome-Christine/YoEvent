@@ -1,8 +1,10 @@
-import 'package:yo_event/Accounts/login.dart';
+ 
 import 'package:flutter/material.dart';
+ 
+import 'package:yo_event/views/splash_screen.dart';
 
 void main() {
-  runApp(Home());
+  runApp(const Home());
 }
 
 class Home extends StatelessWidget {
@@ -10,10 +12,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: login(),
+        body: splashpage(),
       ),
     );
   }
