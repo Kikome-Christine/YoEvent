@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("EVENT HUB"),
+        title: const Text("EVENT HUB"),
         centerTitle: true,
         backgroundColor: Colors.lightBlue,
       ),
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.amberAccent,
                     height: 100,
                     width: 100,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     child: Row(
                       children: [
                         Text(
