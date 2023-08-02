@@ -1,7 +1,8 @@
 import 'package:yo_event/Accounts/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:yo_event/ReusableWidgets/nav_bar.dart';
 import 'package:yo_event/ReusableWidgets/reusable_widget.dart';
-import 'package:yo_event/Accounts/home.dart';
+// import 'package:yo_event/Accounts/home.dart';
 // import 'package:yo_event/ReusableWidgets/colors.dart';
 
 class login extends StatefulWidget {
@@ -40,8 +41,10 @@ class _loginState extends State<login> {
                   height: 20,
                 ),
                 reusableButtons(context, true, () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Navigation_Bar()));
                 }),
                 SizedBox(
                   height: 40,
