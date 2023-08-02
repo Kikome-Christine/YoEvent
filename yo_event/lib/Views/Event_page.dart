@@ -59,10 +59,7 @@ class _EventSiteState extends State<EventSite> {
               borderRadius: BorderRadius.circular(30),
               color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
               image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    "https://www.fedracongressi.com/fedra/wp-content/uploads/2016/02/revelry-event-designers-homepage-slideshow-38.jpeg"),
-              ),
+                  fit: BoxFit.cover, image: AssetImage("assets/event.jpeg")),
             ),
           ),
           Align(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yo_event/Accounts/view_account.dart';
 import 'package:yo_event/Views/Event_page.dart';
+import 'package:yo_event/Views/cart_page.dart';
 import 'package:yo_event/Views/chat.dart';
 
 class Navigation_Bar extends StatefulWidget {
@@ -12,7 +13,7 @@ class _Navigation_BarState extends State<Navigation_Bar> {
   // const Navigation_Bar({super.key});
   List pages = [
     EventSite(),
-    // Cart(),
+    CartSection(),
     ChatSection(),
     ViewAccount(),
   ];
@@ -42,10 +43,10 @@ class _Navigation_BarState extends State<Navigation_Bar> {
           elevation: 0,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.apps), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart), label: "Cart"),
             BottomNavigationBarItem(icon: Icon(Icons.message), label: "Chat"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
           ]),
     );
   }
