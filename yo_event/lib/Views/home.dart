@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 height: 30,
                 padding: const EdgeInsets.all(8),
                 color: Colors.teal[300],
-                child: const Text('Sound of screams but the'),
+                child: const Text('Sound of screams'),
               ),
             ),
             ClipRRect(
