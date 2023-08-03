@@ -21,7 +21,7 @@ with SingleTickerProviderStateMixin{
   
   Future.delayed(const Duration(seconds: 4),(){
     Navigator. of(context).pushReplacement(MaterialPageRoute(
-      builder: (_)=> const onBoardingPage(),
+      builder: (_)=> OnBoardingScreen(),
       ));
   });
   
