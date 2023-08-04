@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
 
-// import '../views/bottom_nav_bar/bottom_bar_view.dart';
-// import '../views/profile/add_profile.dart';
-// import 'package:path/path.dart' as Path;
+import '../ReusableWidgets/nav_bar.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+ 
+import '../views/profile/profile_add.dart';
+import 'package:path/path.dart' as Path;
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -22,10 +27,10 @@ class AuthController extends GetxController {
       /// Login Success
 
       isLoading(false);
-      Get.to(() => BottomBarView());
+      Get.to(() => Navigation_Bar());
     }).catchError((e) {
       isLoading(false);
-      Get.snackbar('Error', "$e");
+      Get.snackbar('Error', "$e", colorText: Colors.white, backgroundColor: Colors.red);
 
       ///Error occured
     });
@@ -49,6 +54,8 @@ class AuthController extends GetxController {
       /// print error information
       print("Error in authentication $e");
       isLoading(false);
+      Get.snackbar('Error', "$e", // Show the error message as a snackbar
+        colorText: Colors.white, backgroundColor: Colors.red);
     });
   }
 
@@ -81,7 +88,7 @@ class AuthController extends GetxController {
       isLoading(false);
 
       ///SuccessFull loged in
-      Get.to(() => BottomBarView());
+      Get.to(() => Navigation_Bar());
     }).catchError((e) {
       /// Error in getting Login
       isLoading(false);
@@ -125,7 +132,7 @@ class AuthController extends GetxController {
       'gender': gender
     }).then((value) {
       isProfileInformationLoading(false);
-      Get.offAll(()=> BottomBarView());
+      Get.offAll(()=> Navigation_Bar());
     });
 
   }

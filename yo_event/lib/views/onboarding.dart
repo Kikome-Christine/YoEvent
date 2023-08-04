@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yo_event/Accounts/login.dart';
+import 'package:yo_event/auth/login.dart';
+ 
  
 
 class OnBoardingScreen extends StatelessWidget {
@@ -88,7 +89,7 @@ class OnBoardingScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => login()),
+                            MaterialPageRoute(builder: (context) => LoginView()),
                           );
                         },
                         child: const Text(
