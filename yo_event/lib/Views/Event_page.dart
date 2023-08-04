@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:yo_event/ReusableWidgets/colors.dart';
 import 'package:yo_event/ReusableWidgets/reusableText.dart';
 import 'package:yo_event/ReusableWidgets/iconTextWidget.dart';
+import 'package:yo_event/Views/home.dart';
 
 class EventSite extends StatefulWidget {
   const EventSite({super.key});
@@ -32,15 +34,20 @@ class _EventSiteState extends State<EventSite> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.redAccent,
-      height: 280,
-      child: PageView.builder(
-          controller: pageController,
-          itemCount: 6,
-          itemBuilder: (context, index) {
-            return _buildPageItem(index);
-          }),
+    return Column(
+      children: [
+        Container(
+          // color: Colors.redAccent,
+          height: 280,
+          child: PageView.builder(
+              controller: pageController,
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                return _buildPageItem(index);
+              }),
+        ),
+        HomePage(),
+      ],
     );
   }
 
@@ -57,7 +64,7 @@ class _EventSiteState extends State<EventSite> {
             margin: EdgeInsets.only(left: 10, right: 10, top: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
+              color: index.isEven ? AppColors.MainColor : AppColors.AppBarColor,
               image: DecorationImage(
                   fit: BoxFit.cover, image: AssetImage("assets/event.jpeg")),
             ),
@@ -122,7 +129,7 @@ class _EventSiteState extends State<EventSite> {
                           icon: Icons.access_time_rounded,
                           text: "22 Mins ago",
                           iconColor: Colors.blue,
-                        )
+                        ),
                       ],
                     )
                   ],
