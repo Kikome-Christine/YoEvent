@@ -1,4 +1,4 @@
-import 'package:yo_event/Accounts/home.dart';
+import 'package:yo_event/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:yo_event/ReusableWidgets/reusable_widget.dart';
 // import 'package:yo_event/ReusableWidgets/colors.dart';
@@ -63,8 +63,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 context,
                 false,
                 () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                  );
                 },
               ),
             ]),
