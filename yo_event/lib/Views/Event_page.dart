@@ -46,7 +46,6 @@ class _EventSiteState extends State<EventSite> {
                 return _buildPageItem(index);
               }),
         ),
-        HomePage(),
       ],
     );
   }
