@@ -27,7 +27,10 @@ class AuthController extends GetxController {
       /// Login Success
 
       isLoading(false);
+ 
       Get.to(() => Navigation_Bar());
+ 
+ 
     }).catchError((e) {
       isLoading(false);
       Get.snackbar('Error', "$e", colorText: Colors.white, backgroundColor: Colors.red);
