@@ -1,12 +1,15 @@
 import 'dart:io';
+import 'package:firebase_storage_web/firebase_storage_web.dart';
 
 import 'package:yo_event/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+ 
 
 import '../../ReusableWidgets/colors.dart';
 import '../../ReusableWidgets/my_widget.dart';
+ 
 
  
 
@@ -239,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'assets/calender.png',
                         cacheHeight: 20,
                       ),
-                      hintText: 'Date Of Birht',
+                      hintText: 'Date Of Birth',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
@@ -289,7 +292,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                Obx(()=> authController!.isProfileInformationLoading.value? Center(child: CircularProgressIndicator(),) :Container(
+                Obx(()=> authController!.isProfileInformationLoading.value? const Center(child: CircularProgressIndicator(),) :Container(
                   height: 50,
                   margin: EdgeInsets.only(top: Get.height * 0.02),
                   width: Get.width,
