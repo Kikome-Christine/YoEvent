@@ -29,7 +29,7 @@ class OnBoardingScreen extends StatelessWidget {
               height: 5,
             ),
             const Text(
-              "Event Management System",
+              " Unforgettable Events,Your Gateway!",
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(
@@ -63,7 +63,9 @@ class OnBoardingScreen extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.only(left: 15, right: 15),
                       child: Text(
-                        "The social media platform designed to get you offline",
+                        " Discover, Plan, and Experience Extraordinary Events, All in One Place!",
+
+  
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600),
@@ -72,7 +74,7 @@ class OnBoardingScreen extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.only(left: 15, right: 15),
                       child: Text(
-                        "EMS is an app where users can leverage their social network to create, discover, share, and monetize events or services.",
+                        "Join the community today and make every moment count!",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,

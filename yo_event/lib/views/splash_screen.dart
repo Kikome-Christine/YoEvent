@@ -41,7 +41,7 @@ with SingleTickerProviderStateMixin{
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [Colors.deepOrangeAccent, Colors.lightGreen,Colors.cyanAccent],
+          gradient: LinearGradient(colors: [Colors.white10, Colors.blueGrey, Colors.lightBlueAccent ],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           )

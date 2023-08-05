@@ -16,6 +16,10 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
+  
+
+
+   
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -30,6 +34,16 @@ class _LoginViewState extends State<LoginView> {
       selectedRadio = val;
     });
   }
+
+  void clearInputFields() {
+    formKey.currentState?.reset();
+  }
+
+  // void clearInputFields() {
+  //   emailController.clear();
+  //   passwordController.clear();
+  // }
+
 
   bool isSignUp = false;
 
@@ -174,7 +188,7 @@ class _LoginViewState extends State<LoginView> {
               myTextField(
                   bool: false,
                   icon: 'assets/mail.png',
-                  text: 'kikomechrisjoreen@gmail.com',
+                  text: 'example@gmail.com',
                   validator: (String input){
                     if(input.isEmpty){
                       Get.snackbar('Warning', 'Email is required.',colorText: Colors.white,backgroundColor: Colors.blue);
@@ -218,7 +232,7 @@ class _LoginViewState extends State<LoginView> {
                         children: [
                           myTextField(
                               bool: false,
-                              icon: 'assets/lock.png',
+                              icon: 'assets/mail.png',
                               text: 'enter your email...',
                               controller: forgetEmailController
                           ),
@@ -267,7 +281,10 @@ class _LoginViewState extends State<LoginView> {
                   return;
                 }
 
-                authController.login(email: emailController.text.trim(),password: passwordController.text.trim());
+                authController.login(
+                   
+                  email: emailController.text.trim(),
+                password: passwordController.text.trim());
 
 
               },
@@ -306,7 +323,7 @@ class _LoginViewState extends State<LoginView> {
                   text: 'assets/google.png',
                   onPressed: (){
 
-                    authController.signInWithGoogle();
+                    authController.signInWithGoogle(context);
 
                   }
 
