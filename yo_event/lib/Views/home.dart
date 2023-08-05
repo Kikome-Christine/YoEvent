@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yo_event/ReusableWidgets/nav_bar.dart';
 
+import 'googleMapTrial.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
