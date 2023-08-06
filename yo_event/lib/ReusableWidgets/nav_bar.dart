@@ -1,53 +1,85 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:yo_event/Accounts/view_account.dart';
+import 'package:yo_event/Views/home.dart';
 import 'package:yo_event/Views/Event_page.dart';
 import 'package:yo_event/Views/cart_page.dart';
 import 'package:yo_event/Views/chat.dart';
+import 'package:yo_event/views/profile/profile_add.dart';
 
-class Navigation_Bar extends StatefulWidget {
+import '../adds/create_event.dart';
+
+class Navigation_Bar extends StatefulWidget{
+  const Navigation_Bar({Key? key}):super(key: key);
   @override
   State<Navigation_Bar> createState() => _Navigation_BarState();
 }
 
-class _Navigation_BarState extends State<Navigation_Bar> {
-  // const Navigation_Bar({super.key});
-  List pages = [
-    EventSite(),
-    CartSection(),
-    ChatSection(),
-    ViewAccount(),
+class _Navigation_BarState extends State<Navigation_Bar>{
+  int selectedItems=0;
+   
+  // ignore: non_constant_identifier_names
+  static final List<Widget>_WidgetOptions = <Widget>[
+    const HomePage(),
+    const  ChatSection(),
+    const  CartSection(),
+    const ProfileScreen(),
+      CreateEventView()
   ];
-  int currentPage = 0;
 
-  void onTap(int index) {
-    setState(() {
-      currentPage = index;
-    });
+  void _tappeditem(int index){
+     setState(() {
+       selectedItems= index;
+     });
+     
   }
-
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[currentPage],
+  // ignore: non_constant_identifier_names
+  Widget build(BuildContext Context){
+    return  Scaffold(
+      appBar: AppBar(
+       
+       backgroundColor: Colors.black12,
+       title: const Text("E Ticketing"), 
+      ),
+      body: Center(
+        child: _WidgetOptions [selectedItems]
+        ), 
       bottomNavigationBar: BottomNavigationBar(
-          onTap: onTap,
-          currentIndex: currentPage,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.blueGrey[200],
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedFontSize: 0,
-          unselectedFontSize: 0,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.blueGrey,
-          elevation: 0,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.apps), label: "Home"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart), label: "Cart"),
-            BottomNavigationBarItem(icon: Icon(Icons.message), label: "Chat"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
-          ]),
-    );
+        currentIndex: selectedItems,
+        onTap: _tappeditem,
+         elevation: 10,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor: Colors.blueGrey,
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: const Color(0xFF526480),
+        items:   const [
+          BottomNavigationBarItem(icon: Icon( FluentSystemIcons.ic_fluent_home_regular), 
+          activeIcon: Icon(FluentSystemIcons.ic_fluent_home_filled),
+          label:""),
+
+          BottomNavigationBarItem(icon: Icon(FluentSystemIcons.ic_fluent_search_regular ),
+          activeIcon: Icon(FluentSystemIcons.ic_fluent_search_filled), 
+          label:""),
+
+          BottomNavigationBarItem(icon: Icon(FluentSystemIcons.ic_fluent_cast_regular), 
+          activeIcon: Icon(FluentSystemIcons.ic_fluent_cast_regular), 
+          label:""),
+
+          BottomNavigationBarItem(icon: Icon( FluentSystemIcons.ic_fluent_person_regular ), 
+          activeIcon: Icon(FluentSystemIcons.ic_fluent_person_filled), 
+          label:""),
+
+          BottomNavigationBarItem(icon: Icon(FluentSystemIcons.ic_fluent_add_regular), 
+          activeIcon: Icon(FluentSystemIcons.ic_fluent_add_regular), 
+          label:""),
+
+        ],
+      ),
+      );
+    
   }
 }
+
+
+
