@@ -11,14 +11,11 @@ import '../../ReusableWidgets/colors.dart';
 import '../../ReusableWidgets/my_widget.dart';
  
 
- 
-
-
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen > createState() => _ProfileScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
@@ -55,13 +52,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
                   final XFile? image =
-                  await _picker.pickImage(source: ImageSource.camera);
+                      await _picker.pickImage(source: ImageSource.camera);
                   if (image != null) {
                     profileImage = File(image.path);
                     setState(() {});
                     Navigator.pop(context);
                   }
-
                 },
                 child: const Icon(
                   Icons.camera_alt,
@@ -82,7 +78,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     setState(() {});
                     Navigator.pop(context);
                   }
-
                 },
                 child: Image.asset(
                   'assets/gallary.png',
@@ -114,12 +109,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // TODO: implement initState
     super.initState();
     authController = Get.find<AuthController>();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
@@ -162,21 +155,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           child: profileImage == null
                               ? const CircleAvatar(
-                            radius: 56,
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: Colors.blue,
-                              size: 50,
-                            ),
-                          )
+                                  radius: 56,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.blue,
+                                    size: 50,
+                                  ),
+                                )
                               : CircleAvatar(
-                            radius: 56,
-                            backgroundColor: Colors.white,
-                            backgroundImage: FileImage(
-                              profileImage!,
-                            ),
-                          ),
+                                  radius: 56,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: FileImage(
+                                    profileImage!,
+                                  ),
+                                ),
                         ),
                       ],
                     ),
@@ -253,24 +246,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Expanded(
                         child: Container(
-                          // alignment: Alignment.topLeft,
-                          // width: 150,
-                          child: RadioListTile(
-                            title: Text(
-                              'Male',
-                              style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.genderTextColor,
-                              ),
-                            ),
-                            value: 0,
-                            groupValue: selectedRadio,
-                            onChanged: (int? val) {
-                              setSelectedRadio(val!);
-                            },
+                      // alignment: Alignment.topLeft,
+                      // width: 150,
+                      child: RadioListTile(
+                        title: Text(
+                          'Male',
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.genderTextColor,
                           ),
-                        )),
+                        ),
+                        value: 0,
+                        groupValue: selectedRadio,
+                        onChanged: (int? val) {
+                          setSelectedRadio(val!);
+                        },
+                      ),
+                    )),
                     Expanded(
                       child: Container(
                         child: RadioListTile(
@@ -292,6 +285,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
+
+                Obx(() => authController!.isProfileInformationLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        height: 50,
+                        margin: EdgeInsets.only(top: Get.height * 0.02),
+                        width: Get.width,
+                        child: elevatedButton(
+                          text: 'Save',
+                          onpress: () async {
+                            if (dob.text.isEmpty) {
+                              Get.snackbar(
+                                  'Warning', "Date of birth is required.",
+                                  colorText: Colors.white,
+                                  backgroundColor: Colors.blue);
+                              return '';
+                            }
+
                 Obx(()=> authController!.isProfileInformationLoading.value? const Center(child: CircularProgressIndicator(),) :Container(
                   height: 50,
                   margin: EdgeInsets.only(top: Get.height * 0.02),
@@ -319,16 +332,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return null;
                       }
 
+                            if (!formKey.currentState!.validate()) {
+                              return null;
+                            }
 
-                      authController!.isProfileInformationLoading(true);
+                            if (profileImage == null) {
+                              Get.snackbar('Warning', "Image is required.",
+                                  colorText: Colors.white,
+                                  backgroundColor: Colors.blue);
+                              return null;
+                            }
 
-                      String imageUrl = await authController!.uploadImageToFirebaseStorage(profileImage!);
+                            authController!.isProfileInformationLoading(true);
 
-                      authController!.uploadProfileData(imageUrl, firstNameController.text.trim(), lastNameController.text.trim(), mobileNumberController.text.trim(), dob.text.trim(), selectedRadio ==0 ? "Male": "Female");
+                            String imageUrl = await authController!
+                                .uploadImageToFirebaseStorage(profileImage!);
 
-                    },
-                  ),
-                )),
+                            authController!.uploadProfileData(
+                                imageUrl,
+                                firstNameController.text.trim(),
+                                lastNameController.text.trim(),
+                                mobileNumberController.text.trim(),
+                                dob.text.trim(),
+                                selectedRadio == 0 ? "Male" : "Female");
+                          },
+                        ),
+                      )),
                 SizedBox(
                   height: Get.height * 0.03,
                 ),

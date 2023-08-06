@@ -328,7 +328,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"
-
+  google_identity_services_web:
+    dependency: transitive
+    description:
+      name: google_identity_services_web
+      sha256: "7940fdc3b1035db4d65d387c1bdd6f9574deaa6777411569c05ecc25672efacd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   google_maps:
     dependency: transitive
     description:
@@ -377,23 +384,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.3"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      sha256: "3a7812d5bcd2894edf53dfaf8cd640876cf6cef50a8f238745c8b8120ea74d3a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.15.4"
-
-  google_identity_services_web:
-    dependency: transitive
-    description:
-      name: google_identity_services_web
-      sha256: "7940fdc3b1035db4d65d387c1bdd6f9574deaa6777411569c05ecc25672efacd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.1"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -434,7 +424,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.0+2"
-
+  html:
+    dependency: transitive
+    description:
+      name: html
+      sha256: "3a7812d5bcd2894edf53dfaf8cd640876cf6cef50a8f238745c8b8120ea74d3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.4"
   http:
     dependency: transitive
     description:
@@ -451,7 +448,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
-
   image_picker:
     dependency: "direct main"
     description:
@@ -516,7 +512,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1"
-
   js:
     dependency: transitive
     description:
@@ -669,16 +664,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.5"
-
-  sanitize_html:
-    dependency: transitive
-    description:
-      name: sanitize_html
-      sha256: "0a445f19bbaa196f5a4f93461aa066b94e6e025622eb1e9bc77872a5e25233a5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
-
   quiver:
     dependency: transitive
     description:
@@ -687,7 +672,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
-
+  sanitize_html:
+    dependency: transitive
+    description:
+      name: sanitize_html
+      sha256: "0a445f19bbaa196f5a4f93461aa066b94e6e025622eb1e9bc77872a5e25233a5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

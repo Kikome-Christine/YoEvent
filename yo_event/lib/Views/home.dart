@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yo_event/ReusableWidgets/nav_bar.dart';
-
-import 'googleMapTrial.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,11 +11,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[650],
-      appBar: AppBar(
-        title: Text("Its a beautiful day"),
-        backgroundColor: Colors.grey[800],
-      ),
+      // backgroundColor: Colors.grey[650],
+      // appBar: AppBar(
+      //   title: Text("Its a beautiful day"),
+      //   backgroundColor: Colors.grey[800],
+      // ),
       body: Container(
         height: 550,
         padding: EdgeInsets.only(left: 10, top: 100, right: 10, bottom: 20),
@@ -49,11 +46,16 @@ class _HomePageState extends State<HomePage> {
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 30,
-                padding: const EdgeInsets.all(8),
-                color: Colors.teal[500],
-                child: Center(child: const Text('Sound Systems')),
+              child: GestureDetector(
+                child: Container(
+                  height: 30,
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.teal[500],
+                  child: Center(child: const Text('Sound Systems')),
+                ),
+                onTap: () {
+                  
+                },
               ),
             ),
             ClipRRect(
@@ -81,42 +83,6 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8),
                 color: Colors.teal[200],
                 child: Center(child: const Text('Chairs and Tents')),
-              ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 30,
-                padding: const EdgeInsets.all(8),
-                color: Colors.teal[300],
-                child: const Text('Sound of screams'),
-              ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 30,
-                padding: const EdgeInsets.all(8),
-                color: Colors.teal[400],
-                child: const Text('Who scream'),
-              ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 30,
-                padding: const EdgeInsets.all(8),
-                color: Colors.teal[500],
-                child: const Text('Revolution is coming...'),
-              ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 30,
-                padding: const EdgeInsets.all(8),
-                color: Colors.teal[600],
-                child: const Text('Revolution, they...'),
               ),
             ),
           ],
@@ -272,240 +238,3 @@ class _HomePage1State extends State<HomePage1> {
     );
   }
 }
-
-//CHAT
-// class HomePage3 extends StatelessWidget {
-//   final List<GridItemData> gridItems = [
-//     GridItemData(
-//       title: 'LADY BUG',
-//       subtitle: 'Description of lady_bug',
-//       imageAsset: 'images/lady_bug.jpg',
-//     ),
-//     GridItemData(
-//       title: 'bird',
-//       subtitle: 'Description of bird',
-//       imageAsset: 'images/bird.jpg',
-//     ),
-//     GridItemData(
-//       title: 'LADY BUG',
-//       subtitle: 'Description of lady_bug',
-//       imageAsset: 'images/lady_bug.jpg',
-//     ),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Display Page'),
-//       ),
-//       body: GridView.builder(
-//         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//           crossAxisCount: 2, // 2 items per row
-//           crossAxisSpacing: 8.0,
-//           mainAxisSpacing: 8.0,
-//         ),
-//         itemCount: gridItems.length,
-//         itemBuilder: (context, index) {
-//           return GridItem(
-//             title: gridItems[index].title,
-//             subtitle: gridItems[index].subtitle,
-//             imageAsset: gridItems[index].imageAsset,
-//             onTap: () {
-//               // Navigate to another page when the grid item is tapped
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) =>
-//                       DetailPage(gridItemData: gridItems[index]),
-//                 ),
-//               );
-//             },
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-
-// class GridItemData {
-//   final String title;
-//   final String subtitle;
-//   final String imageAsset;
-
-//   GridItemData(
-//       {required this.title, required this.subtitle, required this.imageAsset});
-// }
-
-// class GridItem extends StatelessWidget {
-//   final String title;
-//   final String subtitle;
-//   final String imageAsset;
-//   final VoidCallback onTap;
-
-//   GridItem({
-//     required this.title,
-//     required this.subtitle,
-//     required this.imageAsset,
-//     required this.onTap,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(8.0),
-//           color: Colors.grey[200],
-//         ),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Image.asset(
-//               imageAsset,
-//               height: 100,
-//               width: 100,
-//               fit: BoxFit.cover,
-//             ),
-//             SizedBox(height: 8),
-//             Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-//             Text(subtitle),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-class HomePage4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Party Venues')),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // 2 items per row
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-        ),
-        itemCount: 8,
-        itemBuilder: (context, index) {
-          // Replace these dummy data with actual data from your backend or database
-          String title = 'Venue ${index + 1}';
-          String description = 'Description of Venue ${index + 1}';
-          String imageAsset = 'images/bird.jpg';
-
-          return GridItem(
-            title: title,
-            description: description,
-            imageAsset: imageAsset,
-            onTap: () {
-              // Implement onTap functionality (e.g., navigate to the venue details page)
-            },
-          );
-        },
-      ),
-    );
-  }
-}
-
-class GridItem extends StatelessWidget {
-  final String title;
-  final String description;
-  final String imageAsset;
-  final VoidCallback onTap;
-
-  GridItem({
-    required this.title,
-    required this.description,
-    required this.imageAsset,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: Colors.grey[200],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              imageAsset,
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            Text(
-              description,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// child: SingleChildScrollView(
-        //   child: Column(
-        //     mainAxisSize: MainAxisSize.min,
-        //     children: [
-        //       SizedBox(
-        //         height: 200,
-        //         child: ListView.builder(
-        //           itemCount: 20,
-        //           scrollDirection: Axis.horizontal,
-        //           itemBuilder: (context, index) => Container(
-        //             height: 100,
-        //             width: 100,
-        //             margin: EdgeInsets.all(10),
-        //             child: Center(
-        //               child: Text("Wednesday $index"),
-        //             ),
-        //             color: Colors.lightBlue,
-        //           ),
-        //         ),
-        //       ),
-        //       SizedBox(
-        //         height: 200,
-        //         child: ListView.builder(
-        //           itemCount: 20,
-        //           scrollDirection: Axis.horizontal,
-        //           itemBuilder: (context, index) => Container(
-        //             height: 100,
-        //             width: 100,
-        //             margin: EdgeInsets.all(10),
-        //             child: Center(
-        //               child: Text("Wednesday $index"),
-        //             ),
-        //             color: Colors.lightBlue,
-        //           ),
-        //         ),
-        //       ),
-        //       Flexible(
-        //         child: ListView.builder(
-        //           itemCount: 15,
-        //           shrinkWrap: true,
-        //           physics: NeverScrollableScrollPhysics(),
-        //           itemBuilder: (context, index) => ListTile(
-        //             title: Text("List $index"),
-        //           ),
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        // )
