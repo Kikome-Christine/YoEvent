@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yo_event/Views/googleMapTrial.dart';
 
 class CartSection extends StatelessWidget {
   const CartSection({super.key});
@@ -6,7 +7,8 @@ class CartSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("cart section"),
+      child: MapSample(),
+      // Text("cart section"),
     );
   }
 }

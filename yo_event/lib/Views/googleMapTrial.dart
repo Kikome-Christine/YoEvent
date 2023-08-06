@@ -7,10 +7,35 @@ class MapSample extends StatefulWidget {
   const MapSample({super.key});
 
   @override
-  State<MapSample> createState() => MapSampleState();
+  State<MapSample> createState() => _MapSampleState();
 }
 
-class MapSampleState extends State<MapSample> {
+class _MapSampleState extends State<MapSample> {
+  static const _initialCameraPosition = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GoogleMap(
+        initialCameraPosition: _initialCameraPosition,
+        myLocationButtonEnabled: false,
+        zoomControlsEnabled: false,
+      ),
+    );
+  }
+}
+
+// Sample 1
+class MapSample1 extends StatefulWidget {
+  const MapSample1({super.key});
+
+  @override
+  State<MapSample1> createState() => MapSample1State();
+}
+
+class MapSample1State extends State<MapSample1> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
