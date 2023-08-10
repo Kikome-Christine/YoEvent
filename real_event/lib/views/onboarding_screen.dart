@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'auth/login_signup.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -16,7 +15,7 @@ class OnBoardingScreen extends StatelessWidget {
           children: [
             SizedBox(height: 50),
             Text(
-              "Welcome to Real-Event App!",
+              "Welcome to YoEvent App!",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 27,
@@ -27,12 +26,10 @@ class OnBoardingScreen extends StatelessWidget {
               height: 5,
             ),
             Text(
-              "Event Management System",
+              "YoEvent App",
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(
-              height: 50,
-            ),
+            SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.only(left: 15, right: 15),
               child: Image.asset('assets/onboardIcon.png'),
@@ -56,7 +53,7 @@ class OnBoardingScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 15, right: 15),
                       child: Text(
-                        "The social media platform designed to get you offline",
+                        "The social platform designed to provide you with the best event experience",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600),
@@ -65,7 +62,7 @@ class OnBoardingScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 15, right: 15),
                       child: Text(
-                        "RealEvent App is an app where users can leverage their social network to create, discover, share, and monetize events or services.",
+                        "YoEvent App is an app where users can post, create, discover, share, and monetize events or services.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -83,7 +80,7 @@ class OnBoardingScreen extends StatelessWidget {
                           Get.to(() => LoginView());
                         },
                         child: Text(
-                          "Get Started",
+                          "Click to Get Started",
                           style: TextStyle(
                               fontSize: 18,
                               color: Color(0xff274560),

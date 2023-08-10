@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import 'colors.dart';
+import 'package:real_event/ReusableWidget/colors.dart';
 
 Widget myText({text, style, textAlign}) {
   return Text(

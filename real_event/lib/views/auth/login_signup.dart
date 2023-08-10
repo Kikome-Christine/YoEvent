@@ -1,17 +1,12 @@
 import 'dart:ui';
-
-// import 'package:ems/controller/auth_controller.dart';
-// import 'package:ems/views/profile/add_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../ReusableWidget/colors.dart';
-import '../../ReusableWidget/my_widget.dart';
-import '../../controller/auth_controller.dart';
-// import '../../utils/app_color.dart';
-// import '../../widgets/my_widgets.dart';
-import '../profile/profile.dart';
+import 'package:real_event/ReusableWidget/colors.dart';
+import 'package:real_event/ReusableWidget/my_widget.dart';
+import 'package:real_event/controller/auth_controller.dart';
+import 'package:real_event/views/profile/add_profile.dart';
+import 'package:real_event/views/profile/profile.dart';
 
 class LoginView extends StatefulWidget {
   LoginView({Key? key}) : super(key: key);
@@ -80,27 +75,23 @@ class _LoginViewState extends State<LoginView> {
                 isSignUp
                     ? Container(
                         child: myText(
-                          text:
-                              'Welcome, Please Sign up to see events and classes from your friends.',
-                          style: GoogleFonts.roboto(
-                            letterSpacing: 0,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                            text:
+                                'Welcome to YoEvent App, Please Sign up and have the best experience of our app ',
+                            style: GoogleFonts.roboto(
+                                letterSpacing: 0,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                            textAlign: TextAlign.center),
                       )
                     : Container(
                         child: myText(
-                          text:
-                              'Welcome back, Please Sign in and continue your journey with us.',
-                          style: GoogleFonts.roboto(
-                            letterSpacing: 0,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                            text:
+                                'Welcome back, Please Sign in to have an endless fun',
+                            style: GoogleFonts.roboto(
+                                letterSpacing: 0,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                            textAlign: TextAlign.center),
                       ),
                 SizedBox(
                   height: Get.height * 0.03,
@@ -136,9 +127,7 @@ class _LoginViewState extends State<LoginView> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
+                SizedBox(height: Get.height * 0.04),
                 Container(
                   width: Get.width,
                   height: Get.height * 0.6,
@@ -171,7 +160,7 @@ class _LoginViewState extends State<LoginView> {
               myTextField(
                   bool: false,
                   icon: 'assets/mail.png',
-                  text: 'sarasmith12@gmail.com',
+                  text: 'myemail@gmail.com',
                   validator: (String input) {
                     if (input.isEmpty) {
                       Get.snackbar('Warning', 'Email is required.',
@@ -181,7 +170,8 @@ class _LoginViewState extends State<LoginView> {
                     }
 
                     if (!input.contains('@')) {
-                      Get.snackbar('Warning', 'Email is invalid.',
+                      Get.snackbar('Warning',
+                          'Invalid Email, check your email and try again.',
                           colorText: Colors.white,
                           backgroundColor: Colors.blue);
                       return '';
@@ -204,8 +194,8 @@ class _LoginViewState extends State<LoginView> {
                     }
 
                     if (input.length < 6) {
-                      Get.snackbar(
-                          'Warning', 'Password should be 6+ characters.',
+                      Get.snackbar('Warning',
+                          'Strong password should be at least 6 characters.',
                           colorText: Colors.white,
                           backgroundColor: Colors.blue);
                       return '';
@@ -223,7 +213,7 @@ class _LoginViewState extends State<LoginView> {
                             myTextField(
                                 bool: false,
                                 icon: 'assets/lock.png',
-                                text: 'enter your email...',
+                                text: 'Enter your email',
                                 controller: forgetEmailController),
                             SizedBox(
                               height: 10,
@@ -234,7 +224,7 @@ class _LoginViewState extends State<LoginView> {
                                 authController.forgetPassword(
                                     forgetEmailController.text.trim());
                               },
-                              child: Text("Sent"),
+                              child: Text("Sent Successfully"),
                               minWidth: double.infinity,
                             )
                           ],
@@ -277,9 +267,7 @@ class _LoginViewState extends State<LoginView> {
                     },
                   ),
                 )),
-          SizedBox(
-            height: Get.height * 0.02,
-          ),
+          SizedBox(height: Get.height * 0.02),
           myText(
             text: 'Or Connect With',
             style: TextStyle(
@@ -288,16 +276,14 @@ class _LoginViewState extends State<LoginView> {
               color: AppColors.black,
             ),
           ),
-          SizedBox(
-            height: Get.height * 0.01,
-          ),
+          SizedBox(height: Get.height * 0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               socialAppsIcons(
                   text: 'assets/fb.png',
                   onPressed: () {
-                    // Get.to(() => ProfileScreen());
+                    Get.to(() => ProfileScreen1());
                   }),
               socialAppsIcons(
                   text: 'assets/google.png',
@@ -348,7 +334,8 @@ class _LoginViewState extends State<LoginView> {
               }
 
               if (input.length < 6) {
-                Get.snackbar('Warning', 'Password should be 6+ characters.',
+                Get.snackbar('Warning',
+                    'Strong password should be at least 6 characters.',
                     colorText: Colors.white, backgroundColor: Colors.blue);
                 return '';
               }

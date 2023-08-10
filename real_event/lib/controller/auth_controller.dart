@@ -1,22 +1,12 @@
- 
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-  
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:real_event/ReusableWidget/nav_bar.dart';
-
- 
-import '../views/profile/profile.dart';
-
+import 'package:real_event/views/bottom_nav_bar/bottom_bar_view.dart';
+import 'package:real_event/views/profile/add_profile.dart';
 import 'package:path/path.dart' as Path;
-
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
- 
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -32,7 +22,7 @@ class AuthController extends GetxController {
       /// Login Success
 
       isLoading(false);
-       Get.to(() => Navigation_Bar());
+      Get.to(() => BottomBarView());
     }).catchError((e) {
       isLoading(false);
       Get.snackbar('Error', "$e");
@@ -55,8 +45,6 @@ class AuthController extends GetxController {
 
       /// Navigate user to profile screen
       Get.to(() => ProfileScreen());
-      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>ProfileScreen()));
-       
     }).catchError((e) {
       /// print error information
       print("Error in authentication $e");
@@ -67,18 +55,18 @@ class AuthController extends GetxController {
   void forgetPassword(String email) {
     auth.sendPasswordResetEmail(email: email).then((value) {
       Get.back();
-      Get.snackbar('Email Sent', 'We have sent password reset email');
+      Get.snackbar(
+          'Email Sent Successfully', 'Check you email to reset password');
     }).catchError((e) {
-      print("Error in sending password reset email is $e");
+      print("Error occured in sending password reset email is $e");
     });
   }
 
   signInWithGoogle() async {
     isLoading(true);
-    // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
+    // Obtain the authenticattion details from the request
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
@@ -93,7 +81,7 @@ class AuthController extends GetxController {
       isLoading(false);
 
       ///SuccessFull loged in
-      Get.to(() => Navigation_Bar());
+      Get.to(() => BottomBarView());
     }).catchError((e) {
       /// Error in getting Login
       isLoading(false);
@@ -132,7 +120,7 @@ class AuthController extends GetxController {
       'gender': gender
     }).then((value) {
       isProfileInformationLoading(false);
-      Get.offAll(()=> Navigation_Bar());
+      Get.offAll(() => BottomBarView());
     });
   }
 }

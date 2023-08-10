@@ -2,11 +2,23 @@
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
-
 // import '../../model/ticket_model.dart';
 // import '../../utils/app_color.dart';
 // import '../../widgets/check_box.dart';
 // import '../../widgets/my_widgets.dart';
+import 'package:flutter/material.dart';
+
+class Inviteguest extends StatelessWidget {
+  const Inviteguest({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Notifications"),
+    );
+  }
+}
+// 
 
 // class Inviteguest extends StatefulWidget {
 //   const Inviteguest({Key? key}) : super(key: key);
