@@ -6,6 +6,18 @@
 
 // import '../../model/message_model.dart';
 // import '../chat/chat_room_screen.dart';
+import 'package:flutter/material.dart';
+
+class Message extends StatelessWidget {
+  const Message({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Message"),
+    );
+  }
+}
 
 // class MessageScreen extends StatefulWidget {
 //   @override
@@ -205,15 +217,3 @@
 //   }
 // }
 
-import 'package:flutter/material.dart';
-
-class CartSection extends StatelessWidget {
-  const CartSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text("Cart Section"),
-    );
-  }
-}

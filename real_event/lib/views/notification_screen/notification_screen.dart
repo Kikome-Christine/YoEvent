@@ -8,6 +8,19 @@
 // import '../../utils/app_color.dart';
 // import '../../widgets/my_widgets.dart';
 // import 'package:timeago/timeago.dart' as timeAgo;
+
+import 'package:flutter/material.dart';
+
+class Notifications_Screen extends StatelessWidget {
+  const Notifications_Screen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Notifications"),
+    );
+  }
+}
 // class UserNotificationScreen extends StatefulWidget {
 //   @override
 //   _UserNotificationScreenState createState() => _UserNotificationScreenState();
