@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "646998262111",
+    "project_id": "realevent-app",
+    "storage_bucket": "realevent-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646998262111:android:f430d5fc44be3d9d6a76ea",
+        "android_client_info": {
+          "package_name": "com.example.real_event"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646998262111-n6nuv55iv52omvrssq9g0tu4rvutkmi7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.real_event",
+            "certificate_hash": "c2dd26b007c6bd9c38275d55a1dd15ca9ea9f623"
+          }
+        },
+        {
+          "client_id": "646998262111-5tdbica5b3ednudr80s5fmmuvgcdjp8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXuOYJUzxysjUhALgLPDD_Ac8_qc7x76M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646998262111-5tdbica5b3ednudr80s5fmmuvgcdjp8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
