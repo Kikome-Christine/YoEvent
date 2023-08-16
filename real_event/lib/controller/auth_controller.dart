@@ -5,8 +5,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:real_event/views/bottom_nav_bar/bottom_bar_view.dart';
-import 'package:real_event/views/profile/add_profile.dart';
+
 import 'package:path/path.dart' as Path;
+import 'package:real_event/views/profile/add_profile.dart';
+import 'package:real_event/views/profile/profile.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -44,7 +46,7 @@ class AuthController extends GetxController {
       isLoading(false);
 
       /// Navigate user to profile screen
-      Get.to(() => ProfileScreen());
+      Get.to(() => ProfileScreen1());
     }).catchError((e) {
       /// print error information
       print("Error in authentication $e");
@@ -56,7 +58,7 @@ class AuthController extends GetxController {
     auth.sendPasswordResetEmail(email: email).then((value) {
       Get.back();
       Get.snackbar(
-          'Email Sent Successfully', 'Check you email to reset password');
+          'Email Sent Successfully', 'Check you email to reset your password');
     }).catchError((e) {
       print("Error occured in sending password reset email is $e");
     });
