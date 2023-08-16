@@ -420,7 +420,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                       },
                     ),
                     iconTitleContainer(
-                        path: 'assets/ash.png',
+                        path: 'assets/hash.png',
                         text: 'Max Entries',
                         controller: maxEntries,
                         type: TextInputType.number,

@@ -4,9 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:real_event/ReusableWidget/my_widget.dart';
 import 'package:real_event/controller/data_controller.dart';
-
-import '../../widgets/my_widgets.dart';
 
 class CommunityScreen extends StatefulWidget {
   @override
@@ -90,7 +89,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    hintText: 'Austin,USA',
+                    hintText: 'search ......',
                     hintStyle: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -98,9 +97,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Obx(() => GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,

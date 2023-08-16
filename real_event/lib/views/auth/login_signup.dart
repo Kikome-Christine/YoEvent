@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/ReusableWidget/my_widget.dart';
 import 'package:real_event/controller/auth_controller.dart';
-import 'package:real_event/views/profile/add_profile.dart';
 import 'package:real_event/views/profile/profile.dart';
 
 class LoginView extends StatefulWidget {
@@ -164,16 +163,14 @@ class _LoginViewState extends State<LoginView> {
                   validator: (String input) {
                     if (input.isEmpty) {
                       Get.snackbar('Warning', 'Email is required.',
-                          colorText: Colors.white,
-                          backgroundColor: Colors.blue);
+                          colorText: Colors.red, backgroundColor: Colors.blue);
                       return '';
                     }
 
                     if (!input.contains('@')) {
                       Get.snackbar('Warning',
                           'Invalid Email, check your email and try again.',
-                          colorText: Colors.white,
-                          backgroundColor: Colors.blue);
+                          colorText: Colors.red, backgroundColor: Colors.blue);
                       return '';
                     }
                   },
@@ -188,16 +185,14 @@ class _LoginViewState extends State<LoginView> {
                   validator: (String input) {
                     if (input.isEmpty) {
                       Get.snackbar('Warning', 'Password is required.',
-                          colorText: Colors.white,
-                          backgroundColor: Colors.blue);
+                          colorText: Colors.red, backgroundColor: Colors.blue);
                       return '';
                     }
 
                     if (input.length < 6) {
-                      Get.snackbar('Warning',
-                          'Strong password should be at least 6 characters.',
-                          colorText: Colors.white,
-                          backgroundColor: Colors.blue);
+                      Get.snackbar(
+                          'Warning', 'Incorrect password, Please try again',
+                          colorText: Colors.red, backgroundColor: Colors.blue);
                       return '';
                     }
                   },
@@ -215,9 +210,7 @@ class _LoginViewState extends State<LoginView> {
                                 icon: 'assets/lock.png',
                                 text: 'Enter your email',
                                 controller: forgetEmailController),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10),
                             MaterialButton(
                               color: Colors.blue,
                               onPressed: () {
