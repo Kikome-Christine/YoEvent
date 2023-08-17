@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:real_event/controller/data_controller.dart';
-import 'package:real_event/views/home/home.dart';
 import 'package:real_event/widgets/custom_app_bar.dart';
 import 'package:real_event/widgets/events_feed_widget.dart';
 
@@ -34,24 +33,28 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // CustomAppBar(),
+                CustomAppBar(),
 
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Container(
                     child: Text(
-                      "Hey! Welcome to RealEvent App, a home of Hapiness!",
+                      "Hey! Welcome to YoEvent App, a home of Hapiness!",
                       style: GoogleFonts.raleway(
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
                 ),
-                HomePage(), //Updated
+                // HomePage(), //Updated
                 SizedBox(
                   height: Get.height * 0.02,
                 ),
                 // EventsFeed(),
-                // Obx(()=> dataController.isUsersLoading.value? Center(child: CircularProgressIndicator(),) : EventsIJoined())
+                Obx(() => dataController.isUsersLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : EventsIJoined())
               ],
             ),
           ),

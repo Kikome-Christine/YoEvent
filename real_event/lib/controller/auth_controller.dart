@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:real_event/views/bottom_nav_bar/bottom_bar_view.dart';
 
 import 'package:path/path.dart' as Path;
-import 'package:real_event/views/profile/add_profile.dart';
 import 'package:real_event/views/profile/profile.dart';
 
 class AuthController extends GetxController {
@@ -42,25 +41,27 @@ class AuthController extends GetxController {
 
     auth
         .createUserWithEmailAndPassword(email: email!, password: password!)
-        .then((value) {
-      isLoading(false);
+        .then(
+      (value) {
+        isLoading(false);
 
-      /// Navigate user to profile screen
-      Get.to(() => ProfileScreen1());
-    }).catchError((e) {
+        /// Navigate user to profile screen
+        Get.to(() => ProfileScreen1());
+      },
+    ).catchError((e) {
       /// print error information
       print("Error in authentication $e");
       isLoading(false);
     });
   }
 
-  void forgetPassword(String email) {
+  void forgotPassword(String email) {
     auth.sendPasswordResetEmail(email: email).then((value) {
       Get.back();
-      Get.snackbar(
-          'Email Sent Successfully', 'Check you email to reset your password');
+      Get.snackbar('Email Sent Successfully',
+          'Please check your email to reset your password');
     }).catchError((e) {
-      print("Error occured in sending password reset email is $e");
+      print("Error occured in sending password reset email, the email is $e");
     });
   }
 

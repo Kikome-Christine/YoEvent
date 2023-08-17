@@ -5,7 +5,7 @@ import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/controller/data_controller.dart';
 import 'package:real_event/model/ticket_model.dart';
 
-import '../../ReusableWidget/my_widget.dart';
+import 'package:real_event/ReusableWidget/my_widget.dart';
 
 class ProfileScreen1 extends StatefulWidget {
   @override

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -33,14 +34,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Flutter Demo',
-      // home: CreateEventView(key: key),
-      // home: BottomBarView(),
-      home: OnBoardingScreen(),
-      // home: Scaffold(
-      //   body: FirebaseAuth.instance.currentUser == null
-      //       ? OnBoardingScreen()
-      //       : HomeScreen(),
-      // ),
+      // home: OnBoardingScreen(),
+      home: Scaffold(
+        body: FirebaseAuth.instance.currentUser == null
+            ? OnBoardingScreen()
+            : HomeScreen(),
+      ),
     );
   }
 }
