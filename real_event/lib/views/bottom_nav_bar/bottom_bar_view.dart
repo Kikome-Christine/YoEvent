@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:real_event/controller/data_controller.dart';
-import 'package:real_event/views/bottom_nav_bar/create_event.dart';
 import 'package:real_event/views/community/community.dart';
 import 'package:real_event/views/event_page/create_event.dart';
 import 'package:real_event/views/home/home_screen.dart';

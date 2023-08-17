@@ -62,7 +62,7 @@ class OnBoardingScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 15, right: 15),
                       child: Text(
-                        "YoEvent App is an app where users can post, create, discover, share, and monetize events or services.",
+                        "YoEvent App is an app where users can post, create, discover, share, and monetize their events or services.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,

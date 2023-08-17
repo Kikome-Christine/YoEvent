@@ -50,9 +50,7 @@ class _LoginViewState extends State<LoginView> {
             margin: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
             child: Column(
               children: [
-                SizedBox(
-                  height: Get.height * 0.08,
-                ),
+                SizedBox(height: Get.height * 0.08),
                 isSignUp
                     ? myText(
                         text: 'Sign Up',
@@ -68,14 +66,12 @@ class _LoginViewState extends State<LoginView> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                SizedBox(
-                  height: Get.height * 0.03,
-                ),
+                SizedBox(height: Get.height * 0.03),
                 isSignUp
                     ? Container(
                         child: myText(
                             text:
-                                'Welcome to YoEvent App, Please Sign up and have the best experience of our app ',
+                                'Welcome to YoEvent App, Please Sign up and have the best experience of our App ',
                             style: GoogleFonts.roboto(
                                 letterSpacing: 0,
                                 fontSize: 18,
@@ -92,9 +88,7 @@ class _LoginViewState extends State<LoginView> {
                                 fontWeight: FontWeight.w400),
                             textAlign: TextAlign.center),
                       ),
-                SizedBox(
-                  height: Get.height * 0.03,
-                ),
+                SizedBox(height: Get.height * 0.03),
                 Container(
                   width: Get.width * 0.55,
                   child: TabBar(
@@ -175,9 +169,7 @@ class _LoginViewState extends State<LoginView> {
                     }
                   },
                   controller: emailController),
-              SizedBox(
-                height: Get.height * 0.02,
-              ),
+              SizedBox(height: Get.height * 0.02),
               myTextField(
                   bool: true,
                   icon: 'assets/lock.png',
@@ -214,7 +206,7 @@ class _LoginViewState extends State<LoginView> {
                             MaterialButton(
                               color: Colors.blue,
                               onPressed: () {
-                                authController.forgetPassword(
+                                authController.forgotPassword(
                                     forgetEmailController.text.trim());
                               },
                               child: Text("Sent Successfully"),
@@ -239,30 +231,31 @@ class _LoginViewState extends State<LoginView> {
               ),
             ],
           ),
-          Obx(() => authController.isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Container(
-                  height: 50,
-                  margin: EdgeInsets.symmetric(vertical: Get.height * 0.04),
-                  width: Get.width,
-                  child: elevatedButton(
-                    text: 'Login',
-                    onpress: () {
-                      if (!formKey.currentState!.validate()) {
-                        return;
-                      }
+          Obx(
+            () => authController.isLoading.value
+                ? Center(child: CircularProgressIndicator())
+                : Container(
+                    height: 50,
+                    margin: EdgeInsets.symmetric(vertical: Get.height * 0.04),
+                    width: Get.width,
+                    child: elevatedButton(
+                      text: 'Login',
+                      onpress: () {
+                        if (!formKey.currentState!.validate()) {
+                          return;
+                        }
 
-                      authController.login(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim());
-                    },
+                        authController.login(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim());
+                      },
+                    ),
                   ),
-                )),
+          ),
           SizedBox(height: Get.height * 0.02),
           myText(
             text: 'Or Connect With',
+            // textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.w400,
@@ -276,7 +269,7 @@ class _LoginViewState extends State<LoginView> {
               socialAppsIcons(
                   text: 'assets/fb.png',
                   onPressed: () {
-                    Get.to(() => ProfileScreen1());
+                    // Get.to(() => ProfileScreen1());
                   }),
               socialAppsIcons(
                   text: 'assets/google.png',
@@ -340,7 +333,7 @@ class _LoginViewState extends State<LoginView> {
         myTextField(
             bool: false,
             icon: 'assets/lock.png',
-            text: 'Re-enter password',
+            text: 'Confirm password',
             validator: (input) {
               if (input != passwordController.text.trim()) {
                 Get.snackbar(
