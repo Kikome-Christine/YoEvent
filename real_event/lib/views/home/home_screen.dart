@@ -16,13 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //     backgroundColor: AppColors.AppBarColor,
-      //     centerTitle: true,
-      //     title: Text(
-      //       "Welcome to RealEvent App",
-      //       style: TextStyle(fontSize: 20),
-      //     )),
       backgroundColor: Colors.black.withOpacity(0.03),
       body: SafeArea(
         child: Container(
@@ -34,22 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomAppBar(),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Container(
-                    child: Text(
-                      "Hey! Welcome to YoEvent App, a home of Hapiness!",
-                      style: GoogleFonts.raleway(
-                          fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ),
+                Text(
+                  "What Going on today",
+                  style: GoogleFonts.raleway(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                // HomePage(), //Updated
                 SizedBox(
                   height: Get.height * 0.02,
                 ),
-                // EventsFeed(),
+                EventsFeed(),
                 Obx(() => dataController.isUsersLoading.value
                     ? Center(
                         child: CircularProgressIndicator(),

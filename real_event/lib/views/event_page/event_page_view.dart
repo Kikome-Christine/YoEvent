@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/controller/data_controller.dart';
 
+import '../check_out/check_out_screen.dart';
+import '../invite_guest/invite_guest_screen.dart';
+
 class EventPageView extends StatefulWidget {
   DocumentSnapshot eventData, user;
 
@@ -81,7 +84,7 @@ class _EventPageViewState extends State<EventPageView> {
       eventSavedByUsers = [];
     }
 
-    DateTime d = DateTime.tryParse(widget.eventData.get('date'))!;
+    //DateTime d = DateTime.tryParse(widget.eventData.get('date'))!;
 
     // String formattedDate = formatDate(widget.eventData.get('date'));
     // DateFormat("dd-MMM").format(d);
@@ -317,7 +320,7 @@ class _EventPageViewState extends State<EventPageView> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        // Get.to(() => Inviteguest());
+                        Get.to(() => Inviteguest());
                       },
                       child: Container(
                         height: 50,
@@ -343,7 +346,7 @@ class _EventPageViewState extends State<EventPageView> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        // Get.off(() => CheckOutView(widget.eventData));
+                        Get.off(() => CheckOutView(widget.eventData));
                       },
                       child: Container(
                         height: 50,

@@ -114,7 +114,7 @@ Widget buildCard(
             ),
 
             width: double.infinity,
-            height: Get.width * 0.5,
+            height: Get.width * 0.3,
             //color: Colors.red,
           ),
         ),

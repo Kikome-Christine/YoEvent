@@ -3,9 +3,11 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:real_event/ReusableWidget/my_widget.dart';
 import 'package:real_event/controller/data_controller.dart';
+import 'package:real_event/views/event_page/event_page_view.dart';
 
 class CommunityScreen extends StatefulWidget {
   @override
@@ -177,7 +179,9 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       }
 
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          //Get.to(() => EventPageView(event, user));
+                        },
                         child: Container(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -192,7 +196,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 3, //5
                               ),
                               Row(
                                 children: [
@@ -225,7 +229,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               myText(
                                 text: eventName,
@@ -235,7 +239,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               myText(
                                 text: tagString,
