@@ -441,7 +441,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                 ),
 
                 iconTitleContainer(
-                    path: 'assets/ash.png',
+                    path: 'assets/hash.png',
                     text: 'Enter tags that will go with event.',
                     width: double.infinity,
                     controller: tagsController,
@@ -885,7 +885,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                       ),
                     ),
                     iconTitleContainer(
-                        path: 'assets/dollarLogo.png',
+                        path: 'assets/ush.png',
                         text: 'price',
                         type: TextInputType.number,
                         height: 40,

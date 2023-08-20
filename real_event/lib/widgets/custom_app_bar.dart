@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:real_event/ReusableWidget/colors.dart';
+import 'package:real_event/views/notification_screen/notification_screen.dart';
 
 import 'my_widgets.dart';
 
@@ -25,7 +26,7 @@ Widget CustomAppBar() {
           height: 22,
           child: InkWell(
             onTap: () {
-              // Get.to(() => UserNotificationScreen());
+              Get.to(() => UserNotificationScreen()); //Edited
             },
             child: Image.asset('assets/Frame.png'),
           ),

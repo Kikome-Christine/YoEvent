@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:real_event/views/bottom_nav_bar/bottom_bar_view.dart';
 
 import 'package:path/path.dart' as Path;
+import 'package:real_event/views/profile/add_profile.dart';
 import 'package:real_event/views/profile/profile.dart';
 
 class AuthController extends GetxController {
@@ -46,7 +47,7 @@ class AuthController extends GetxController {
         isLoading(false);
 
         /// Navigate user to profile screen
-        Get.to(() => ProfileScreen1());
+        Get.to(() => ProfileScreen());
       },
     ).catchError((e) {
       /// print error information

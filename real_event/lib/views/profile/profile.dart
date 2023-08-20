@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/controller/data_controller.dart';
 import 'package:real_event/model/ticket_model.dart';
@@ -453,6 +455,7 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                     //     ],
                     //   ),
                     // ),
+
                     SizedBox(
                       height: 40,
                     ),
@@ -811,22 +814,22 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                   margin: EdgeInsets.only(top: 105, right: 35),
                   child: InkWell(
                     onTap: () {
-                      // if (isNotEditable == false) {
-                      // FirebaseFirestore.instance
-                      // .collection('users')
-                      // .doc(FirebaseAuth.instance.currentUser!.uid)
-                      // .set({
-                      //     'first': firstNameController.text,
-                      //     'last': lastNameController.text,
-                      //     'location': locationController.text,
-                      //     'desc': descriptionController.text
-                      //   }, SetOptions(merge: true)).then((value) {
-                      //     Get.snackbar('Profile Updated',
-                      //         'Profile has been updated successfully.',
-                      //         colorText: Colors.white,
-                      //         backgroundColor: Colors.blue);
-                      //   });
-                      // }
+                      if (isNotEditable == false) {
+                        FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .set({
+                          'first': firstNameController.text,
+                          'last': lastNameController.text,
+                          'location': locationController.text,
+                          'desc': descriptionController.text
+                        }, SetOptions(merge: true)).then((value) {
+                          Get.snackbar('Profile Updated',
+                              'Profile has been updated successfully.',
+                              colorText: Colors.white,
+                              backgroundColor: Colors.blue);
+                        });
+                      }
 
                       setState(() {
                         isNotEditable = !isNotEditable;

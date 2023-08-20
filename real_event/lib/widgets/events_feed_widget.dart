@@ -109,12 +109,12 @@ Widget buildCard(
             // child: Image.network(image!,fit: BoxFit.fill,),
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(image!), fit: BoxFit.fill),
+                  image: NetworkImage(image!), fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(10),
             ),
 
             width: double.infinity,
-            height: Get.width * 0.5,
+            height: Get.width * 0.8,
             //color: Colors.red,
           ),
         ),

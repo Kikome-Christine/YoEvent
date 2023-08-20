@@ -1,9 +1,13 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:real_event/controller/data_controller.dart';
+import 'package:real_event/services/notification_service.dart';
+import 'package:real_event/views/bottom_nav_bar/message_screen.dart';
 import 'package:real_event/views/community/community.dart';
 import 'package:real_event/views/event_page/create_event.dart';
 import 'package:real_event/views/home/home_screen.dart';
+import 'package:real_event/views/profile/add_profile.dart';
 import 'package:real_event/views/profile/profile.dart';
 
 class BottomBarView extends StatefulWidget {
@@ -26,7 +30,7 @@ class _BottomBarViewState extends State<BottomBarView> {
     HomeScreen(),
     CommunityScreen(),
     CreateEventView(),
-    // MessageScreen(),
+    MessageScreen(),
     ProfileScreen1(),
   ];
 
@@ -35,12 +39,12 @@ class _BottomBarViewState extends State<BottomBarView> {
     // TODO: implement initState
     super.initState();
     Get.put(DataController(), permanent: true);
-    // FirebaseMessaging.instance.getInitialMessage();
-    // FirebaseMessaging.onMessage.listen((message) {
-    // LocalNotificationService.display(message);
-    // });
+    FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onMessage.listen((message) {
+      LocalNotificationService.display(message);
+    });
 
-    // LocalNotificationService.storeToken();
+    LocalNotificationService.storeToken();
   }
 
   @override
