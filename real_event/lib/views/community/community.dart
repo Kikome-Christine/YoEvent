@@ -180,7 +180,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
                       return InkWell(
                         onTap: () {
-                          //Get.to(() => EventPageView(event, user));
+                          Get.to(() => EventPageView(
+                              dataController.filteredEvents.value[i], doc));
                         },
                         child: Container(
                           child: Column(

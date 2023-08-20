@@ -770,6 +770,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "uuid",
+      "rootUri": "file:///C:/Users/user/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-3.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "vector_graphics",
       "rootUri": "file:///C:/Users/user/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics-1.1.7",
       "packageUri": "lib/",
@@ -854,7 +860,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-08-18T14:53:59.806478Z",
+  "generated": "2023-08-20T10:45:01.538849Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

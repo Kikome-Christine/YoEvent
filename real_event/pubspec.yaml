@@ -63,6 +63,7 @@ dependencies:
   firebase_messaging: ^14.6.6
   flutter_local_notifications: ^15.1.0+1
   flutterwave_standard: ^1.0.8
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

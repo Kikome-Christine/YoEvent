@@ -8,6 +8,7 @@ import 'package:real_event/views/community/community.dart';
 import 'package:real_event/views/event_page/create_event.dart';
 import 'package:real_event/views/home/home_screen.dart';
 import 'package:real_event/views/profile/add_profile.dart';
+import 'package:real_event/views/profile/profile.dart';
 
 class BottomBarView extends StatefulWidget {
   BottomBarView({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _BottomBarViewState extends State<BottomBarView> {
     CommunityScreen(),
     CreateEventView(),
     MessageScreen(),
-    ProfileScreen(),
+    ProfileScreen1(),
   ];
 
   @override

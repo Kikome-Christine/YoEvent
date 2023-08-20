@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:real_event/services/notification_service.dart';
+import 'package:real_event/views/home/home_screen.dart';
 import 'package:real_event/views/onboarding_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+Future<Null> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
   print(message.notification!.toString());
 }
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
               .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
         ),
       ),
-      title: 'Flutter Demo',
+      title: 'YoEvent App',
       home: OnBoardingScreen(),
       // home: Scaffold(
       //   body: FirebaseAuth.instance.currentUser == null

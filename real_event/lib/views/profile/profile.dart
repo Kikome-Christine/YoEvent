@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/controller/data_controller.dart';
 import 'package:real_event/model/ticket_model.dart';
