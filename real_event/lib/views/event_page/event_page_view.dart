@@ -72,6 +72,8 @@ class _EventPageViewState extends State<EventPageView> {
       likes = 0;
     }
 
+                List userLikes = [];
+
     try {
       comments = widget.eventData.get('comments').length;
     } catch (e) {
