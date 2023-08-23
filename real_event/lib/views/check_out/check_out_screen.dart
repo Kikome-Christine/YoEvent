@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/ReusableWidget/my_widget.dart';
 
+import '../../services/payment_service/payment_service.dart';
+
 class CheckOutView extends StatefulWidget {
   DocumentSnapshot? eventDoc;
 
@@ -60,15 +62,19 @@ class _CheckOutViewState extends State<CheckOutView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              
               SizedBox(
                 height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
+                  GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context); // Navigate back to the previous view
+                  },
+                   
+                  child: Container(
                       width: 27,
                       height: 27,
                       padding: EdgeInsets.all(5),
@@ -150,21 +156,21 @@ class _CheckOutViewState extends State<CheckOutView> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 25,
+                                  width: 30,
                                 ),
-                                myText(
-                                  text: 'may 15',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w300,
-                                    color: AppColors.black,
-                                  ),
-                                ),
+                                // myText(
+                                //   text: 'may 15',
+                                //   style: TextStyle(
+                                //     fontSize: 13,
+                                //     fontWeight: FontWeight.w300,
+                                //     color: AppColors.black,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 20,
                           ),
                           Row(
                             children: [
@@ -347,12 +353,12 @@ class _CheckOutViewState extends State<CheckOutView> {
                     width: 48,
                     height: 34,
                     child: Image.asset(
-                      'assets/strip.png',
+                      'assets/flutter.png',
                       fit: BoxFit.cover,
                     ),
                   ),
                   myText(
-                    text: 'Strip',
+                    text: 'FlutterWave',
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
@@ -383,7 +389,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                   ),
                   Spacer(),
                   myText(
-                    text: '\$${widget.eventDoc!.get('price')}',
+                    text: 'Shs${widget.eventDoc!.get('price')}',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -403,7 +409,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                   ),
                   Spacer(),
                   myText(
-                    text: '\$${int.parse(widget.eventDoc!.get('price')) + 2}',
+                    text: 'Shs${int.parse(widget.eventDoc!.get('price')) + 2}',
                     style: TextStyle(
                       fontSize: 16,
                       color: AppColors.blue,
@@ -421,9 +427,11 @@ class _CheckOutViewState extends State<CheckOutView> {
                 width: double.infinity,
                 child: elevatedButton(
                   onpress: () {
-                    if (selectedRadio == 3) {
-                      // makePayment(context,amount: '${int.parse(widget.eventDoc!.get('price')) + 2}',eventId: widget.eventDoc!.id);
-                    }
+                     if (selectedRadio == 3) {
+                     FlutterWavePay (context,amount: '${int.parse(widget.eventDoc!.get('price')) + 2}',eventId: widget.eventDoc!.id)
+                   
+
+                     }
                   },
                   text: 'Book Now',
                 ),

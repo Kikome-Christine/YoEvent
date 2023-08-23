@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter/foundation.dart' as foundation;
+//import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -102,9 +102,9 @@ class _ChatState extends State<Chat> {
                   ),
                 ),
                 myText(
-                  text: ' ',
+                  text:  widget.name,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 10,
                     fontWeight: FontWeight.w500,
                     color: Color(0xff918F8F),
                   ),
@@ -292,10 +292,12 @@ class _ChatState extends State<Chat> {
                                 replyText = '';
                               }
 
-                              dataController!.sendMessageToFirebase(
-                                  data: data,
-                                  grouid: widget.groupId,
-                                  lastMessage: message);
+                              // Send the message directly to Firestore
+                              FirebaseFirestore.instance
+                                  .collection('chats')
+                                  .doc(widget.groupId)
+                                  .collection('chatroom')
+                                  .add(data);
 
                               dataController!.createNotification(widget.uid!);
 
@@ -321,48 +323,47 @@ class _ChatState extends State<Chat> {
                   offstage: !isEmojiPickerOpen,
                   child: SizedBox(
                     height: 230,
-                    child: EmojiPicker(
-                        onEmojiSelected: (Category, Emoji emoji) {
-                          _onEmojiSelected(emoji);
-                        },
-                        onBackspacePressed: _onBackspacePressed,
-                        config: Config(
-                            columns: 7,
-                            emojiSizeMax: 32 *
-                                (foundation.defaultTargetPlatform ==
-                                        TargetPlatform.iOS
-                                    ? 1.30
-                                    : 1.0), // Issue: https://github.com/flutter/flutter/issues/28894
-                            // Issue: https://github.com/flutter/flutter/issues/28894
-                            // emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
-                            verticalSpacing: 0,
-                            horizontalSpacing: 0,
-                            initCategory: Category.RECENT,
-                            bgColor: const Color(0xFFF2F2F2),
-                            indicatorColor: Colors.blue,
-                            iconColor: Colors.grey,
-                            iconColorSelected: Colors.blue,
-                            //progressIndicatorColor: Colors.blue,
-                            backspaceColor: Colors.blue,
-                            //showRecentsTab: true,
-                            recentsLimit: 28,
-                            //noRecentsText: 'No Recents',
-                            noRecents: const Text(
-                              'No Recents',
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.black26),
-                            ),
-                            tabIndicatorAnimDuration: kTabScrollDuration,
-                            categoryIcons: const CategoryIcons(),
-                            buttonMode: ButtonMode.MATERIAL)),
+                     child: EmojiPicker(
+                    onEmojiSelected: (Category  , Emoji emoji) {
+                      _onEmojiSelected(emoji);
+                    },
+                    onBackspacePressed: _onBackspacePressed,
+                    config: Config(
+                        columns: 7,
+                        // Issue: https://github.com/flutter/flutter/issues/28894
+                        emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
+                        verticalSpacing: 0,
+                        horizontalSpacing: 0,
+                        gridPadding: EdgeInsets.zero,
+                        initCategory: Category.RECENT,
+                        bgColor: const Color(0xFFF2F2F2),
+                        indicatorColor: Colors.blue,
+                        iconColor: Colors.grey,
+                        iconColorSelected: Colors.blue,
+                        //progressIndicatorColor: Colors.blue,
+                        backspaceColor: Colors.blue,
+                        skinToneDialogBgColor: Colors.white,
+                        skinToneIndicatorColor: Colors.grey,
+                        enableSkinTones: true,
+                        //showRecentsTab: true,
+                        recentsLimit: 28,
+                        replaceEmojiOnLimitExceed: false,
+                        noRecents: const Text(
+                          'No Recents',
+                          style: TextStyle(fontSize: 20, color: Colors.black26),
+                          textAlign: TextAlign.center,
+                        ),
+                        tabIndicatorAnimDuration: kTabScrollDuration,
+                        categoryIcons: const CategoryIcons(),
+                        buttonMode: ButtonMode.MATERIAL)),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+              ),
+            
+            ]
+                  ),
+                )],)
+                );
+            
   }
 
   textMessageIReceived(DocumentSnapshot doc) {
@@ -431,7 +432,7 @@ class _ChatState extends State<Chat> {
                 Padding(
                   padding: const EdgeInsets.only(left: 70, top: 5),
                   child: Text(
-                    "2 days ago",
+                    " ",
                     style: TextStyle(
                       color: AppColors.grey,
                       fontWeight: FontWeight.w500,
@@ -484,7 +485,7 @@ class _ChatState extends State<Chat> {
             Padding(
               padding: const EdgeInsets.only(top: 5, right: 20),
               child: Text(
-                " now",
+               " ",
                 style: TextStyle(
                   color: AppColors.grey,
                   fontWeight: FontWeight.w500,
@@ -540,7 +541,7 @@ class _ChatState extends State<Chat> {
                   right: 0,
                 ),
                 child: Text(
-                  "mins back",
+                 " ",
                   style: TextStyle(
                     color: AppColors.grey,
                     fontWeight: FontWeight.w500,
@@ -610,7 +611,7 @@ class _ChatState extends State<Chat> {
                   left: 60,
                 ),
                 child: Text(
-                  "06:25 PM",
+                  " ",
                   style: TextStyle(
                     color: AppColors.grey,
                     fontWeight: FontWeight.w500,
@@ -651,7 +652,7 @@ class _ChatState extends State<Chat> {
               Padding(
                 padding: const EdgeInsets.only(left: 66, top: 5),
                 child: Text(
-                  "You replied to ${widget.name}",
+                  "  ${widget.name}",
                   style: TextStyle(
                     color: AppColors.grey,
                     fontWeight: FontWeight.w500,
@@ -740,7 +741,7 @@ class _ChatState extends State<Chat> {
               Padding(
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
-                  "04:35 PM",
+                  " ",
                   style: TextStyle(
                     color: AppColors.grey,
                     fontWeight: FontWeight.w500,
@@ -779,7 +780,7 @@ class _ChatState extends State<Chat> {
               Padding(
                 padding: const EdgeInsets.only(left: 66, top: 5),
                 child: Text(
-                  "Replied to you ",
+                 " ",
                   style: TextStyle(
                     color: AppColors.grey,
                     fontWeight: FontWeight.w500,
@@ -806,7 +807,7 @@ class _ChatState extends State<Chat> {
                 margin: EdgeInsets.only(left: 0),
                 width: screenwidth * 0.4,
                 // height: screenheight * 0.06,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(18),
                       bottomLeft: Radius.circular(18),
@@ -877,7 +878,7 @@ class _ChatState extends State<Chat> {
               Padding(
                 padding: const EdgeInsets.only(left: 73, top: 2),
                 child: Text(
-                  "04:35 PM",
+                   " ",
                   style: TextStyle(
                     color: AppColors.grey,
                     fontWeight: FontWeight.w500,

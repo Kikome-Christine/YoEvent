@@ -22,20 +22,55 @@
           }
         },
         {
-          "client_id": "646998262111-5tdbica5b3ednudr80s5fmmuvgcdjp8o.apps.googleusercontent.com",
+          "client_id": "646998262111-0hq8fnb0ud18hi892oh7h83q7e5q2pia.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
           "current_key": "AIzaSyDXuOYJUzxysjUhALgLPDD_Ac8_qc7x76M"
+        },
+        {
+          "current_key": "AIzaSyAOYEd-aNkKI1TiPSdImO9Vy6ecvcnaCzk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "646998262111-5tdbica5b3ednudr80s5fmmuvgcdjp8o.apps.googleusercontent.com",
+              "client_id": "646998262111-0hq8fnb0ud18hi892oh7h83q7e5q2pia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646998262111:android:df2f4c5ec47faf4b6a76ea",
+        "android_client_info": {
+          "package_name": "event.cocis.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646998262111-0hq8fnb0ud18hi892oh7h83q7e5q2pia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXuOYJUzxysjUhALgLPDD_Ac8_qc7x76M"
+        },
+        {
+          "current_key": "AIzaSyAOYEd-aNkKI1TiPSdImO9Vy6ecvcnaCzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646998262111-0hq8fnb0ud18hi892oh7h83q7e5q2pia.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

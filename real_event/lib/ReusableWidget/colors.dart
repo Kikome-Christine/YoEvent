@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
+
 
 class AppColors {
   static final Color AppBarColor = const Color(0xFF1E6091);
@@ -21,4 +23,23 @@ class AppColors {
   static Color whitegrey = Color(0xffC3C2C2);
   static Color grey = Color(0xff918F8F);
   static Color greychat = Color(0xffE8E8E8);
+}
+
+const TextStyle categoryTextStyle = TextStyle(
+  fontSize: 12.0,
+  fontWeight: FontWeight.bold,
+  color: Color(0xFFFFFFFF),
+);
+
+final TextStyle selectedCategoryTextStyle = categoryTextStyle.copyWith(
+  color: const Color.fromARGB(255, 232, 6, 104),
+);
+
+class States extends ChangeNotifier {
+  int selectedCategory = 0;
+
+  void updateCategory(int selectedCategory) {
+    this.selectedCategory = selectedCategory;
+    notifyListeners();
+  }
 }

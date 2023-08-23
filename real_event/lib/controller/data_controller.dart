@@ -145,3 +145,4 @@ class DataController extends GetxController {
     });
   }
 }
+ 

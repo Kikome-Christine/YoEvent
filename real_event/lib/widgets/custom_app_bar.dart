@@ -11,7 +11,7 @@ Widget CustomAppBar() {
     child: Row(
       children: [
         Container(
-          width: 116,
+          width: 110,
           height: 17,
           child: myText(
               text: 'YoEvent App',

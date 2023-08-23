@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/ReusableWidget/my_widget.dart';
 import 'package:real_event/controller/data_controller.dart';
+import 'package:real_event/model/cat.dart';
 import 'package:real_event/model/event_media_model.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
@@ -34,8 +35,10 @@ class _CreateEventViewState extends State<CreateEventView> {
   TextEditingController endTimeController = TextEditingController();
   TextEditingController startTimeController = TextEditingController();
   TextEditingController frequencyEventController = TextEditingController();
+   
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
   TimeOfDay endTime = TimeOfDay(hour: 0, minute: 0);
+    
 
   var selectedFrequency = -2;
 
@@ -48,6 +51,7 @@ class _CreateEventViewState extends State<CreateEventView> {
     descriptionController.clear();
     tagsController.clear();
     maxEntries.clear();
+     
     endTimeController.clear();
     startTimeController.clear();
     frequencyEventController.clear();
@@ -112,6 +116,15 @@ class _CreateEventViewState extends State<CreateEventView> {
     'Closed',
     'Open',
   ];
+
+  // String category = 'Events';
+  // List<String> cat_list=[
+  //   'Events',
+  //   'Catering',
+  //   'Music',
+  //   'Venues',
+
+  // ];
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -248,7 +261,6 @@ class _CreateEventViewState extends State<CreateEventView> {
                     : SizedBox(
                         height: 20,
                       ),
-
                 media.length == 0
                     ? Container()
                     : Container(
@@ -344,7 +356,6 @@ class _CreateEventViewState extends State<CreateEventView> {
                             itemCount: media.length,
                             scrollDirection: Axis.horizontal),
                       ),
-
                 const SizedBox(
                   height: 20,
                 ),
@@ -370,10 +381,10 @@ class _CreateEventViewState extends State<CreateEventView> {
                       }
                       return null;
                     }),
-
                 const SizedBox(
                   height: 20,
                 ),
+                 
                 myTextField(
                     bool: false,
                     icon: 'assets/location.png',
@@ -439,7 +450,6 @@ class _CreateEventViewState extends State<CreateEventView> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 iconTitleContainer(
                     path: 'assets/hash.png',
                     text: 'Enter tags that will go with event.',
@@ -456,11 +466,9 @@ class _CreateEventViewState extends State<CreateEventView> {
                       }
                       return null;
                     }),
-
                 const SizedBox(
                   height: 20,
                 ),
-
                 Container(
                   height: 42,
                   decoration: BoxDecoration(
@@ -719,24 +727,9 @@ class _CreateEventViewState extends State<CreateEventView> {
                         'assets/repeat.png',
                         cacheHeight: 20,
                       ),
-                      // border: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(8.0)),
                     ),
                   ),
                 ),
-
-                // myTextField(
-                //     bool: false,
-                //     icon: 'assets/repeat.png',
-                //     text: 'Frequecy of event',
-                //     controller: frequencyEventController,
-                //     validator: (String input){
-                //       if(input.isEmpty){
-                //         Get.snackbar('Opps', "Frequency is required.",colorText: Colors.white,backgroundColor: Colors.blue);
-                //         return '';
-                //       }
-                //     }
-                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -779,6 +772,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                 const SizedBox(
                   height: 20,
                 ),
+
                 Container(
                   height: 149,
                   decoration: BoxDecoration(
@@ -807,14 +801,20 @@ class _CreateEventViewState extends State<CreateEventView> {
                       ),
                       hintText:
                           'Write a summary and any details your invitee should know about the event...',
-                      // border: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(8.0),
-                      // ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: Get.height * 0.02,
+                ),
+
+                 
+                       
+
+
+                 
+                const SizedBox(
+                  height: 20,
                 ),
                 Container(
                   alignment: Alignment.topLeft,
@@ -826,6 +826,9 @@ class _CreateEventViewState extends State<CreateEventView> {
                     ),
                   ),
                 ),
+
+
+                 
                 SizedBox(
                   height: Get.height * 0.005,
                 ),
@@ -842,14 +845,6 @@ class _CreateEventViewState extends State<CreateEventView> {
                         border: Border.all(
                             width: 1, color: AppColors.genderTextColor),
                       ),
-                      // decoration: BoxDecoration(
-                      //
-                      //   // borderRadius: BorderRadius.circular(8),
-                      //    border: Border(
-                      //         bottom: BorderSide(color: Colors.black.withOpacity(0.8),width: 0.6)
-                      //     )
-                      //
-                      // ),
                       child: DropdownButton(
                         isExpanded: true,
                         underline: Container(),
@@ -970,6 +965,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                                   tagsController.text.split(',');
 
                               Map<String, dynamic> eventData = {
+                                 
                                 'event': event_type,
                                 'event_name': titleController.text,
                                 'location': locationController.text,
@@ -991,7 +987,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                                 'tags': tags,
                                 'inviter': [
                                   FirebaseAuth.instance.currentUser!.uid
-                                ]
+                                ],
                               };
 
                               await dataController

@@ -11,7 +11,7 @@ import '../invite_guest/invite_guest_screen.dart';
 class EventPageView extends StatefulWidget {
   DocumentSnapshot eventData, user;
 
-  EventPageView(this.eventData, this.user);
+  EventPageView(this.eventData, this.user, {super.key});
 
   @override
   _EventPageViewState createState() => _EventPageViewState();
@@ -21,115 +21,118 @@ class _EventPageViewState extends State<EventPageView> {
   DataController dataController = Get.find<DataController>();
 
   List eventSavedByUsers = [];
+  
+  get userLikes =>  [];
+  
+  get comments =>  [];
 
   @override
   Widget build(BuildContext context) {
-    // DateTime d = DateTime.tryParse(widget.eventData.get('date'))!;
-
-    // String formattedDate = formatDate(widget.eventData.get('date'));
-    //DateFormat("dd-MMM").format(d);
+    
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: StreamBuilder<DocumentSnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('events')
                   .doc(widget.eventData.id)
                   .snapshots(),
               builder: (context, snapshot) {
-                // if (!snapshot.hasData) {
-                //   return Center(
-                //     child: CircularProgressIndicator(),
-                //   );
-                // }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                if (snapshot.hasData || snapshot.data == null) {
-                  return Center(child: Text('Event not found'));
-                }
-
+                
                 DocumentSnapshot eventData = snapshot.data!;
-                String image = widget.user.get('image') ?? '';
+                
+                 
 
-                try {
-                  image = widget.user.get('image');
-                } catch (e) {
-                  image = '';
-                }
+                 String image = widget.user.get('image') ?? '';
+              if (widget.user.data() is Map<String, dynamic>) {
+                Map<String, dynamic> userMap =
+                    widget.user.data() as Map<String, dynamic>;
+                image = userMap.containsKey('image') ? userMap['image'] : '';
+              }
 
-                String eventImage = '';
-                try {
-                  List media = eventData.get('media') as List;
-                  Map mediaItem =
-                      media.firstWhere((element) => element['isImage'] == true)
-                          as Map;
+
+              String eventImage = '';
+              if (eventData.data() is Map<String, dynamic>) {
+                Map<String, dynamic> eventDataMap =
+                    eventData.data() as Map<String, dynamic>;
+
+                if (eventDataMap.containsKey('media')) {
+                  List media = eventDataMap['media'] as List;
+                  Map mediaItem = media.firstWhere(
+                    (element) => element['isImage'] == true,
+                    orElse: () => {'url': ''},
+                  );
                   eventImage = mediaItem['url'];
-                } catch (e) {
-                  eventImage = '';
                 }
+              }
 
-                List joinedUsers = [];
+              List joinedUsers = [];
+              if (eventData.data() is Map<String, dynamic>) {
+                Map<String, dynamic> eventDataMap =
+                    eventData.data() as Map<String, dynamic>;
 
-                try {
-                  joinedUsers = eventData.get('joined');
-                } catch (e) {
-                  joinedUsers = [];
+                joinedUsers = eventDataMap.containsKey('joined')
+                    ? eventDataMap['joined']
+                    : [];
+              }
+
+              String tagsCollectively = '';
+              if (eventData.data() is Map<String, dynamic>) {
+                Map<String, dynamic> eventDataMap =
+                    eventData.data() as Map<String, dynamic>;
+
+                if (eventDataMap.containsKey('tags')) {
+                  List tags = eventDataMap['tags'] as List;
+                  tags.forEach((e) {
+                    tagsCollectively += '#$e ';
+                  });
                 }
+              }
 
-                List tags = [];
-                try {
-                  tags = eventData.get('tags');
-                } catch (e) {
-                  tags = [];
-                }
+              int likes = 0;
+              List userLikes = [];
+              int comments = 0;
+              List eventSavedByUsers = [];
 
-                String tagsCollectively = '';
+              if (eventData.data() is Map<String, dynamic>) {
+                Map<String, dynamic> eventDataMap =
+                    eventData.data() as Map<String, dynamic>;
 
-                tags.forEach((e) {
-                  tagsCollectively += '#$e ';
-                });
+                likes = eventDataMap.containsKey('likes')
+                    ? eventDataMap['likes'].length
+                    : 0;
 
-                int likes = 0;
-                int comments = 0;
+                userLikes = eventDataMap.containsKey('likes')
+                    ? eventDataMap['likes']
+                    : [];
 
-                try {
-                  likes = eventData.get('likes').length;
-                } catch (e) {
-                  likes = 0;
-                }
+                comments = eventDataMap.containsKey('comments')
+                    ? eventDataMap['comments'].length
+                    : 0;
 
-                List userLikes = [];
+                eventSavedByUsers = eventDataMap.containsKey('saves')
+                    ? eventDataMap['saves']
+                    : [];
+              }
 
-                try {
-                  userLikes = eventData.get('likes');
-                } catch (e) {
-                  userLikes = [];
-                }
-
-                try {
-                  comments = eventData.get('comments').length;
-                } catch (e) {
-                  comments = 0;
-                }
-
-                try {
-                  eventSavedByUsers = eventData.get('saves');
-                } catch (e) {
-                  eventSavedByUsers = [];
-                }
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
+                     GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context); // Navigate back to the previous view
+                  },
+                   
                       child: Container(
-                        margin: EdgeInsets.only(top: 50, bottom: 20),
+                        margin: const EdgeInsets.only(top: 50, bottom: 20),
                         width: 30,
                         height: 30,
                         child: Image.asset(
@@ -145,7 +148,7 @@ class _EventPageViewState extends State<EventPageView> {
                           ),
                           radius: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -153,45 +156,40 @@ class _EventPageViewState extends State<EventPageView> {
                           children: [
                             Text(
                               '${widget.user.get('first')} ${widget.user.get('last')}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            Text(
-                              "${widget.user.get('location')}",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                             
+
+                             
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                           decoration: BoxDecoration(
-                              color: Color(0xffEEEEEE),
+                              color: const Color(0xffEEEEEE),
                               borderRadius: BorderRadius.circular(8)),
                           child: Row(
                             children: [
                               Text(
                                 '${widget.eventData.get('event')}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              Icon(Icons.arrow_drop_down),
+                              const Icon(Icons.arrow_drop_down),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
@@ -200,21 +198,23 @@ class _EventPageViewState extends State<EventPageView> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
-                                color: Color(0xff0000FF), width: 1.5),
+                                color: const Color(0xff0000FF), width: 1.5),
                           ),
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                              const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                           child: Text(
                             '${widget.eventData.get('start_time')}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
+
+                         
                         Text(
                           "${widget.eventData.get('event_name')}",
                           style: TextStyle(
@@ -222,12 +222,13 @@ class _EventPageViewState extends State<EventPageView> {
                               color: AppColors.black,
                               fontWeight: FontWeight.w600),
                         ),
-                        SizedBox(
-                          width: 10,
+                        const SizedBox(
+                          width: 20,
                         ),
                         Text(
                           "${widget.eventData.get('date')}",
-                          style: TextStyle(
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
                             fontSize: 13,
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
@@ -235,15 +236,15 @@ class _EventPageViewState extends State<EventPageView> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
+                    const SizedBox(
+                      height: 20,
                     ),
                     Row(
                       children: [
                         Image.asset(
                           'assets/location.png',
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
@@ -256,7 +257,7 @@ class _EventPageViewState extends State<EventPageView> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -270,7 +271,7 @@ class _EventPageViewState extends State<EventPageView> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -294,7 +295,7 @@ class _EventPageViewState extends State<EventPageView> {
                                 }
 
                                 return Container(
-                                  margin: EdgeInsets.only(left: 10),
+                                  margin: const EdgeInsets.only(left: 10),
                                   child: CircleAvatar(
                                     minRadius: 13,
                                     backgroundImage: NetworkImage(image),
@@ -305,21 +306,22 @@ class _EventPageViewState extends State<EventPageView> {
                               scrollDirection: Axis.horizontal,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                "\$4${widget.eventData.get('price')}",
-                                style: TextStyle(
+                                "Shs${widget.eventData.get('price')}",
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
                                 ),
                               ),
+                              
                               Text(
                                 "${widget.eventData.get('max_entries')} spots left!",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400,
@@ -330,36 +332,41 @@ class _EventPageViewState extends State<EventPageView> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     RichText(
                         text: TextSpan(children: [
                       TextSpan(
                         text: widget.eventData.get('description'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 13,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ])),
-                    SizedBox(
-                      height: 10,
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                     
+                    const SizedBox(
+                      height: 20,
                     ),
                     Row(
                       children: [
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              Get.to(() => Inviteguest());
+                              Get.to(() => const Inviteguest());
                             },
                             child: Container(
                               height: 50,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(13),
                                   color: Colors.blue.withOpacity(0.9)),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "invite Friends",
                                   style: TextStyle(
@@ -372,7 +379,7 @@ class _EventPageViewState extends State<EventPageView> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Expanded(
@@ -389,14 +396,14 @@ class _EventPageViewState extends State<EventPageView> {
                                       color: Colors.grey.withOpacity(0.4),
                                       spreadRadius: 0.1,
                                       blurRadius: 60,
-                                      offset: Offset(
+                                      offset: const Offset(
                                           0, 1), // changes position of shadow
                                     ),
                                   ],
                                   borderRadius: BorderRadius.circular(13)),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'Join',
                                   style: TextStyle(
@@ -410,7 +417,7 @@ class _EventPageViewState extends State<EventPageView> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -419,7 +426,7 @@ class _EventPageViewState extends State<EventPageView> {
                           child: Text(
                             tagsCollectively,
                             maxLines: 2,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -427,7 +434,7 @@ class _EventPageViewState extends State<EventPageView> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -460,7 +467,7 @@ class _EventPageViewState extends State<EventPageView> {
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color(0xffD24698).withOpacity(0.02),
+                                  color: const Color(0xffD24698).withOpacity(0.02),
                                 )
                               ],
                             ),
@@ -474,17 +481,17 @@ class _EventPageViewState extends State<EventPageView> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
                           likes.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Image.asset(
@@ -492,17 +499,17 @@ class _EventPageViewState extends State<EventPageView> {
                           width: 16,
                           height: 16,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
                           comments.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Image.asset(
@@ -510,14 +517,14 @@ class _EventPageViewState extends State<EventPageView> {
                           height: 16,
                           width: 16,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         InkWell(
                           onTap: () {
                             if (eventSavedByUsers.contains(
                                 FirebaseAuth.instance.currentUser!.uid)) {
                               FirebaseFirestore.instance
                                   .collection('events')
-                                  .doc(widget.eventData.id)
+                                  .doc( eventData.id)
                                   .set({
                                 'saves': FieldValue.arrayRemove(
                                     [FirebaseAuth.instance.currentUser!.uid])
@@ -529,7 +536,7 @@ class _EventPageViewState extends State<EventPageView> {
                             } else {
                               FirebaseFirestore.instance
                                   .collection('events')
-                                  .doc(widget.eventData.id)
+                                  .doc( eventData.id)
                                   .set({
                                 'saves': FieldValue.arrayUnion(
                                     [FirebaseAuth.instance.currentUser!.uid])
@@ -551,7 +558,7 @@ class _EventPageViewState extends State<EventPageView> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                   ],
