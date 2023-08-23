@@ -1,174 +1,46 @@
-//  import 'dart:async';
-// import 'dart:convert';
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:http/http.dart' as http;
-// Map<String, dynamic>? paymentIntentData;
-
-//   Future<void> makePayment(
-//     BuildContext context, {
-//     String? amount,
-//     String? eventId
-//   }) async {
-//     try {
-//       paymentIntentData = await createPaymentIntent(amount!, 'USD');
-//       await Stripe.instance
-//           .initPaymentSheet(
-//               paymentSheetParameters: SetupPaymentSheetParameters(
-//                   paymentIntentClientSecret:
-//                       paymentIntentData!['client_secret'],
-//                   applePay: true,
-//                   googlePay: true,
-//                   testEnv: true,
-//                   style: ThemeMode.dark,
-//                   merchantCountryCode: 'US',
-//                   merchantDisplayName: 'EMS'))
-//           .then((value) {})
-//           .catchError((e) {
-//         print("Error is $e");
-//       });
-
-//       ///now finally display payment sheeet
-//       displayPaymentSheet(context,eventId!);
-//     } catch (e, s) {
-//       print('exception:');
-//        print("\n");
-//       print("$e");
-//       print("\n");
-
-//       print("$s");
-//     }
-//   }
-
-//   displayPaymentSheet(BuildContext context,String eventId) async {
-//     try {
-//       await Stripe.instance
-//           .presentPaymentSheet(
-//               parameters: PresentPaymentSheetParameters(
-//         clientSecret: paymentIntentData!['client_secret'],
-//         confirmPayment: true,
-//       ))
-//           .then((newValue) {
-//         FirebaseFirestore.instance
-//             .collection('events')
-//             .doc(eventId)
-//             .set({
-//           'joined':
-//               FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid]),
-//           'max_entries': FieldValue.increment(-1),
-//         }, SetOptions(merge: true)).then((value) {
-//           FirebaseFirestore.instance
-//               .collection('booking')
-//               .doc(eventId)
-//               .set({
-//             'booking': FieldValue.arrayUnion([
-//               {
-//                 'uid': FirebaseAuth.instance.currentUser!.uid,
-//                 'tickets': 1
-//               }
-//             ])
-//           });
-
-//           ScaffoldMessenger.of(context)
-//               .showSnackBar(SnackBar(content: Text("Paid Successfully")));
-
-//           Timer(Duration(seconds: 3), () {
-//             Get.back();
-//           });
-//         });
-
-//         paymentIntentData = null;
-//       }).onError((error, stackTrace) {
-//         print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
-//       });
-//     } on StripeException catch (e) {
-//       print('Exception/DISPLAYPAYMENTSHEET==> $e');
-//       showDialog(
-//           context: context,
-//           builder: (_) => AlertDialog(
-//                 content: Text("Cancelled "),
-//               ));
-//     } catch (e) {
-//       print('$e');
-//     }
-//   }
-
-//   //  Future<Map<String, dynamic>>
-//   createPaymentIntent(String amount, String currency) async {
-//     try {
-//       Map<String, dynamic> body = {
-//         'amount': calculateAmount(amount),
-//         'currency': currency,
-//         'payment_method_types[]': 'card'
-//       };
-//       print(body);
-//       var response = await http.post(
-//           Uri.parse('https://api.stripe.com/v1/payment_intents'),
-//           body: body,
-//           headers: {
-//             'Authorization':
-//                 'Bearer $secretKey',
-//             'Content-Type': 'application/x-www-form-urlencoded'
-//           });
-//       print('Create Intent reponse ===> ${response.body.toString()}');
-//       return jsonDecode(response.body);
-//     } catch (err) {
-//       print('err charging user: ${err.toString()}');
-//     }
-//   }
-
-//   calculateAmount(String amount) {
-//     final a = (int.parse(amount)) * 100;
-//     return a.toString();
-//   }
-
+import 'dart:async';
+ 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
+import 'package:get/get.dart';
+import 'package:real_event/ReusableWidget/app_constants.dart';
 import 'package:uuid/uuid.dart';
-
-class FlutterWavePayments extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'YoEvent payment page',
-      home: MyHomePage('YoEvent service Payments'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage(this.title, {super.key});
-
+ 
+ 
+ 
+class FlutterWavePay extends StatefulWidget {
+  const FlutterWavePay(this.title,this.amount, this.eventId);
+ 
   final String title;
-
+  final String amount;
+  final String eventId;
+ 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<FlutterWavePay> createState() => _FlutterWavePayState();
 }
-
-class _MyHomePageState extends State<MyHomePage> {
+ 
+class _FlutterWavePayState extends State<FlutterWavePay> {
   final formKey = GlobalKey<FormState>();
   final amountController = TextEditingController();
   final currencyController = TextEditingController();
   final narrationController = TextEditingController();
   // final publicKeyController = TextEditingController();
   // final encryptionKeyController = TextEditingController();
-
-  final publicKeyFromFlutterwave = 'FLWPUBK-d1abf117b016d463130ce4477b58bf31-X';
+ 
+  final publicKeyFromFlutterwave = publicKey;
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
-
+ 
   String selectedCurrency = "";
-
+ 
   bool isTestMode = false;
-
+ 
   @override
   Widget build(BuildContext context) {
     currencyController.text = selectedCurrency;
-
+ 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -210,9 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       : "Currency is required",
                 ),
               ),
-
+ 
               /* Public key controller from flutterwave
-              
+ 
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: TextFormField(
@@ -225,11 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
+ 
               */
-
+ 
               /* encryption key controller 
-
+ 
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: TextFormField(
@@ -242,9 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
+ 
               */
-
+ 
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: TextFormField(
@@ -270,9 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       : "Contact is required",
                 ),
               ),
-
+ 
               /* is test mode disabled
-
+ 
               Container(
                 width: double.infinity,
                 margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
@@ -290,9 +162,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-
+ 
               */
-
+ 
               Container(
                 width: double.infinity,
                 height: 50,
@@ -300,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ElevatedButton(
                   onPressed: _onPressed,
                   child: const Text(
-                    "Make Payment",
+                    "Pay Now",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -311,46 +183,84 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
+ 
   _onPressed() {
     final currentState = formKey.currentState;
     if (currentState != null && currentState.validate()) {
       _handlePaymentInitialization();
     }
   }
-
+ 
+  ///Firebase logic
   _handlePaymentInitialization() async {
     final Customer customer = Customer(email: emailController.text);
-    final Flutterwave flutterwave = Flutterwave(
-      context: context,
-
-      /* 
-      publicKey: publicKeyController.text.trim().isEmpty
-          ? getPublicKey()
-          : publicKeyController.text.trim(),
-      */
-
-      publicKey: publicKeyFromFlutterwave,
-      currency: selectedCurrency,
-      redirectUrl: 'https://google.com',
-      txRef: const Uuid().v1(),
-      // amount: amountController.text.toString().trim(),
-      amount: amountController.text,
-      customer: customer,
-      paymentOptions: "card, payattitude, barter, bank transfer, ussd",
-      customization: Customization(title: "YoEvent service payments"),
-      isTestMode: isTestMode,
-    );
-
-    final ChargeResponse response = await flutterwave.charge();
-    showLoading(response.toString());
-    print("${response.toJson()}");
+ 
+    DocumentSnapshot eventSnapshot = await FirebaseFirestore.instance
+        .collection('events')
+        .doc('eventId')
+        .get();
+ 
+    if (eventSnapshot.exists) {
+      Map<String, dynamic> eventData =
+          eventSnapshot.data() as Map<String, dynamic>;
+      String eventId = eventSnapshot.id;
+      String eventName = eventData['eventName'];
+      double amount = eventData['amount'];
+ 
+      final Flutterwave flutterwave = Flutterwave(
+        context: context,
+        publicKey: publicKeyFromFlutterwave,
+        currency: selectedCurrency,
+        redirectUrl: 'https://google.com',
+        txRef: const Uuid().v1(),
+        amount: amount.toString(), // Convert the amount to a string
+        customer: customer,
+        paymentOptions: "card, payattitude, barter, bank transfer, ussd",
+        customization: Customization(title: eventName),
+        isTestMode: isTestMode,
+      );
+ 
+      final ChargeResponse response = await flutterwave.charge();
+      showLoading(response.toString());
+      print("${response.toJson()}");
+    } else {
+      print("Event data not found in Firestore");
+    }
   }
-
+ 
+  // _handlePaymentInitialization() async {
+  //   final Customer customer = Customer(email: emailController.text);
+  //   final Flutterwave flutterwave = Flutterwave(
+  //     context: context,
+ 
+  //     /* 
+  //     publicKey: publicKeyController.text.trim().isEmpty
+  //         ? getPublicKey()
+  //         : publicKeyController.text.trim(),
+  //     */
+ 
+  //     publicKey: publicKeyFromFlutterwave,
+  //     currency: selectedCurrency,
+  //     redirectUrl:
+  //         'https://google.com', //'https://sandbox-flw-web-v3.herokuapp.com/pay/tj6xde1v4i7g'
+  //     txRef: const Uuid().v1(),
+  //     // amount: amountController.text.toString().trim(),
+  //     amount: amountController.text,
+  //     customer: customer,
+  //     paymentOptions: "card, payattitude, barter, bank transfer, ussd",
+  //     customization: Customization(title: "YoEvent service payments"),
+  //     isTestMode: isTestMode,
+  //   );
+ 
+  //   final ChargeResponse response = await flutterwave.charge();
+  //   showLoading(response.toString());
+  //   print("${response.toJson()}");
+  // }
+ 
   String getPublicKey() {
     return "";
   }
-
+ 
   void _openBottomSheet() {
     showModalBottomSheet(
         context: context,
@@ -358,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return _getCurrency();
         });
   }
-
+ 
   Widget _getCurrency() {
     final currencies = ["UGX", "KES", "USD", "TZS"];
     return Container(
@@ -385,7 +295,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
+ 
   _handleCurrencyTap(String currency) {
     setState(() {
       selectedCurrency = currency;
@@ -393,7 +303,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     Navigator.pop(context);
   }
-
+ 
   Future<void> showLoading(String message) {
     return showDialog(
       context: context,

@@ -8,6 +8,7 @@ import 'package:real_event/controller/data_controller.dart';
 import 'package:real_event/model/ticket_model.dart';
 
 import 'package:real_event/ReusableWidget/my_widget.dart';
+import 'package:real_event/views/bottom_nav_bar/message_screen.dart';
 
 class ProfileScreen1 extends StatefulWidget {
   @override
@@ -20,40 +21,7 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
 
-  List<Ticketdetail> ticket = [
-    Ticketdetail(
-        color: Color(0xffADD8E6),
-        date: 'Feb 28',
-        range: '10-11',
-        name: 'BRUNCH',
-        img1: 'assets/#1.png',
-        img2: 'assets/#2.png',
-        img3: 'assets/#3.png',
-        img4: 'assets/#1.png',
-        img5: 'assets/#3.png',
-        img6: 'assets/#3.png',
-        heart: 'assets/heart.png',
-        count: '5.2k',
-        message: 'assets/message.png',
-        rate: '140',
-        share: 'assets/send.png'),
-    Ticketdetail(
-        color: Color(0xff0000FF),
-        date: 'may 14',
-        range: '6-7:30',
-        name: 'BRUNCH',
-        img1: 'assets/#1.png',
-        img2: 'assets/#2.png',
-        img3: 'assets/#3.png',
-        img4: 'assets/#1.png',
-        img5: 'assets/#3.png',
-        img6: 'assets/#3.png',
-        heart: 'assets/heart2.png',
-        count: '5.2k',
-        message: 'assets/message.png',
-        rate: '150',
-        share: 'assets/send.png'),
-  ];
+
 
   bool isNotEditable = true;
 
@@ -67,41 +35,42 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
     super.initState();
     dataController = Get.find<DataController>();
 
-    firstNameController.text = dataController!.myDocument!.get('first');
-    lastNameController.text = dataController!.myDocument!.get('last');
-
+    //firstNameController.text = dataController!.myDocument!.get('first');
+    //lastNameController.text = dataController!.myDocument!.get('last');
     try {
-      descriptionController.text = dataController!.myDocument!.get('desc');
-    } catch (e) {
-      descriptionController.text = '';
-    }
+  if (dataController!.myDocument != null) {
+    firstNameController.text = dataController!.myDocument!.get('first') ?? '';
+    lastNameController.text = dataController!.myDocument!.get('last') ?? '';
+    descriptionController.text = dataController!.myDocument!.get('desc') ?? '';
+    image = dataController!.myDocument!.get('image') ?? '';
+    locationController.text = dataController!.myDocument!.get('location') ?? '';
 
-    try {
-      image = dataController!.myDocument!.get('image');
-    } catch (e) {
-      image = '';
-    }
-
-    try {
-      locationController.text = dataController!.myDocument!.get('location');
-    } catch (e) {
-      locationController.text = '';
-    }
-
-    try {
-      followers = dataController!.myDocument!.get('followers').length;
-    } catch (e) {
-      followers = 0;
-    }
-
-    try {
-      following = dataController!.myDocument!.get('following').length;
-    } catch (e) {
-      following = 0;
-    }
+    followers = dataController!.myDocument!.get('followers')?.length ?? 0;
+    following = dataController!.myDocument!.get('following')?.length ?? 0;
   }
+} catch (e) {
+  // Handle any exceptions or errors that might occur
+}
+try {
+  if (dataController!.myDocument != null) {
+    image = dataController!.myDocument!.get('image') ?? '';
+    locationController.text = dataController!.myDocument!.get('location') ?? '';
 
-  @override
+    var followersList = dataController!.myDocument!.get('followers');
+    followers = (followersList is List) ? followersList.length : 0;
+
+    var followingList = dataController!.myDocument!.get('following');
+    following = (followingList is List) ? followingList.length : 0;
+  }
+} catch (e) {
+  print("An error occurred while fetching data: $e");
+  image = '';
+  locationController.text = '';
+  followers = 0;
+  following = 0;
+}
+  }
+ @override
   Widget build(BuildContext context) {
     var screenheight = MediaQuery.of(context).size.height;
     var screenwidth = MediaQuery.of(context).size.width;
@@ -121,7 +90,9 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          MessageScreen();
+                         },
                         child: Image(
                           image: AssetImage('assets/sms.png'),
                           width: 28,
@@ -137,6 +108,7 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                   ),
                 ),
               ),
+            
               Align(
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 90, horizontal: 20),
@@ -191,9 +163,8 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                                   ? CircleAvatar(
                                       radius: 56,
                                       backgroundColor: Colors.white,
-                                      backgroundImage: AssetImage(
-                                        'assets/profile.png',
-                                      ))
+                                      backgroundImage:  NetworkImage(image
+                                      ),)
                                   : CircleAvatar(
                                       radius: 56,
                                       backgroundColor: Colors.white,
@@ -377,84 +348,7 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                         ],
                       ),
                     ),
-                    // Container(
-                    //   margin: EdgeInsets.only(top: 10),
-                    //   width: Get.width * 0.6,
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //     children: [
-                    //       Container(
-                    //         width: 34,
-                    //         height: 34,
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(36),
-                    //           color: Color(0xffE2E2E2),
-                    //         ),
-                    //         child: Padding(
-                    //           padding: const EdgeInsets.all(5),
-                    //           child: Icon(
-                    //             Icons.add,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         width: 34,
-                    //         height: 34,
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(36),
-                    //           color: AppColors.blue,
-                    //         ),
-                    //         child: Image(
-                    //           image: AssetImage('assets/#1.png'),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         width: 34,
-                    //         height: 34,
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(36),
-                    //           color: AppColors.blue,
-                    //         ),
-                    //         child: Image(
-                    //           image: AssetImage('assets/#3.png'),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         width: 34,
-                    //         height: 34,
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(36),
-                    //           color: AppColors.blue,
-                    //         ),
-                    //         child: Image(
-                    //           image: AssetImage('assets/#2.png'),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         width: 34,
-                    //         height: 34,
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(36),
-                    //           color: AppColors.blue,
-                    //         ),
-                    //         child: Image(
-                    //           image: AssetImage('assets/#3.png'),
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         width: 34,
-                    //         height: 34,
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(36),
-                    //           color: AppColors.blue,
-                    //         ),
-                    //         child: Image(
-                    //           image: AssetImage('assets/#1.png'),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                     
 
                     SizedBox(
                       height: 40,
@@ -472,39 +366,39 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                                 'assets/Group 26.png',
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(left: 15),
-                              width: 53,
-                              height: 53,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(36),
-                                color: Colors.white,
-                              ),
-                              child: Image(
-                                  image: AssetImage('assets/Ellipse 984.png')),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 15),
-                              width: 53,
-                              height: 53,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(36),
-                                color: Colors.white,
-                              ),
-                              child: Image(
-                                  image: AssetImage('assets/Ellipse 985.png')),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 15),
-                              width: 53,
-                              height: 53,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(36),
-                                color: Colors.white,
-                              ),
-                              child: Image(
-                                  image: AssetImage('assets/Ellipse 986.png')),
-                            ),
+                            // Container(
+                            //   margin: EdgeInsets.only(left: 15),
+                            //   width: 53,
+                            //   height: 53,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(36),
+                            //     color: Colors.white,
+                            //   ),
+                            //   // child: Image(
+                            //   //     image: AssetImage('assets/Ellipse 984.png')),
+                            // ),
+                            // Container(
+                            //   margin: EdgeInsets.only(left: 15),
+                            //   width: 53,
+                            //   height: 53,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(36),
+                            //     color: Colors.white,
+                            //   ),
+                            // //   child: Image(
+                            // //       image: AssetImage('assets/Ellipse 985.png')),
+                            // ),
+                            // Container(
+                            //   margin: EdgeInsets.only(left: 15),
+                            //   width: 53,
+                            //   height: 53,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(36),
+                            //     color: Colors.white,
+                            //   ),
+                            //   // child: Image(
+                              //     image: AssetImage('assets/Ellipse 986.png')),
+                            //),
                           ],
                         ),
                         Container(
@@ -529,7 +423,7 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
                                     color: Colors.black,
@@ -539,7 +433,7 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                               ),
                               child: TabBar(
                                 indicatorColor: Colors.black,
-                                labelPadding: EdgeInsets.symmetric(
+                                labelPadding: const EdgeInsets.symmetric(
                                   horizontal: 20.0,
                                   vertical: 10,
                                 ),
@@ -574,220 +468,13 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
                                       scrollDirection: Axis.vertical,
-                                      itemCount: ticket.length,
+                                      //itemCount: ticket.length,
                                       itemBuilder: (context, index) {
                                         return
-                                            // InkWell(onTap: (){
-                                            // Get.to(()=>Detailproduct(record: popular[index],));
-                                            // },
-                                            Container(
-                                          margin: EdgeInsets.only(top: 20),
-                                          width: 388,
-                                          height: 130,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.15),
-                                                spreadRadius: 2,
-                                                blurRadius: 3,
-                                                offset: Offset(0,
-                                                    0), // changes position of shadow
-                                              ),
-                                            ],
-                                          ),
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                                top: 10, left: 10),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: 40,
-                                                  height: 41,
-                                                  padding: EdgeInsets.all(1),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      6,
-                                                    ),
-                                                    border: Border.all(
-                                                      color:
-                                                          ticket[index].color!,
-                                                    ),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      myText(
-                                                        text:
-                                                            ticket[index].range,
-                                                        style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                      myText(
-                                                        text:
-                                                            ticket[index].date,
-                                                        style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      '${ticket[index].name}',
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 15,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].img1}'),
-                                                          width: 27,
-                                                          height: 27,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 1,
-                                                        ),
-                                                        Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].img2}'),
-                                                          width: 27,
-                                                          height: 27,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 1,
-                                                        ),
-                                                        Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].img3}'),
-                                                          width: 27,
-                                                          height: 27,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 1,
-                                                        ),
-                                                        Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].img4}'),
-                                                          width: 27,
-                                                          height: 27,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 1,
-                                                        ),
-                                                        Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].img5}'),
-                                                          width: 27,
-                                                          height: 27,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 1,
-                                                        ),
-                                                        Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].img6}'),
-                                                          width: 27,
-                                                          height: 27,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          height: 30,
-                                                          child: Image.asset(
-                                                            ticket[index].heart,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 1,
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 10),
-                                                          child: Text(
-                                                            '${ticket[index].count}',
-                                                            style: TextStyle(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 23,
-                                                        ),
-                                                        Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].message}'),
-                                                          width: 16,
-                                                          height: 16,
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 10),
-                                                          child: Text(
-                                                            '${ticket[index].rate}',
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 27,
-                                                        ),
-                                                        Container(
-                                                            child: Image(
-                                                          image: AssetImage(
-                                                              '${ticket[index].share}'),
-                                                          width: 15,
-                                                          height: 15,
-                                                        )),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                            InkWell(onTap: (){
+                                            Get.to(()=> ProfileScreen1());
+                                            },
+                                            
                                         );
                                       }),
                                   Container(
@@ -815,20 +502,20 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                   child: InkWell(
                     onTap: () {
                       if (isNotEditable == false) {
-                        FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .set({
-                          'first': firstNameController.text,
-                          'last': lastNameController.text,
-                          'location': locationController.text,
-                          'desc': descriptionController.text
-                        }, SetOptions(merge: true)).then((value) {
-                          Get.snackbar('Profile Updated',
-                              'Profile has been updated successfully.',
-                              colorText: Colors.white,
-                              backgroundColor: Colors.blue);
-                        });
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .set({
+            'first': firstNameController.text,
+            'last': lastNameController.text,
+            'location': locationController.text,
+            'desc': descriptionController.text
+          }, SetOptions(merge: true)).then((value) {
+            Get.snackbar('Profile Updated',
+                'Profile has been updated successfully.',
+                colorText: Colors.white,
+                backgroundColor: Colors.blue);});
+                       
                       }
 
                       setState(() {
@@ -854,3 +541,5 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
     );
   }
 }
+
+   

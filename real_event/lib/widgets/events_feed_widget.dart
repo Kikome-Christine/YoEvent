@@ -12,17 +12,17 @@ import '../model/ticket_model.dart';
 import '../views/event_page/event_page_view.dart';
 import '../views/profile/add_profile.dart';
 
-List<AustinYogaWork> austin = [
-  AustinYogaWork(rangeText: '7-8', title: 'CONCERN'),
-  AustinYogaWork(rangeText: '8-9', title: 'VINYASA'),
-  AustinYogaWork(rangeText: '9-10', title: 'MEDITATION'),
-];
-List<String> imageList = [
-  'assets/#1.png',
-  'assets/#2.png',
-  'assets/#3.png',
-  'assets/#1.png',
-];
+// List<AustinYogaWork> austin = [
+//   AustinYogaWork(rangeText: '7-8', title: 'CONCERN'),
+//   AustinYogaWork(rangeText: '8-9', title: 'VINYASA'),
+//   AustinYogaWork(rangeText: '9-10', title: 'MEDITATION'),
+// ];
+// List<String> imageList = [
+//   'assets/#1.png',
+//   'assets/#2.png',
+//   'assets/#3.png',
+//   'assets/#1.png',
+// ];
 
 Widget EventsFeed() {
   DataController dataController = Get.find<DataController>();

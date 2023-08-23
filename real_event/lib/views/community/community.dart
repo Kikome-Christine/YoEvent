@@ -5,8 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:real_event/ReusableWidget/categoryWidget.dart';
+import 'package:real_event/ReusableWidget/colors.dart';
 import 'package:real_event/ReusableWidget/my_widget.dart';
 import 'package:real_event/controller/data_controller.dart';
+import 'package:real_event/model/cat.dart';
+import 'package:provider/provider.dart';
 import 'package:real_event/views/event_page/event_page_view.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -18,6 +22,17 @@ class _CommunityScreenState extends State<CommunityScreen> {
   TextEditingController searchController = TextEditingController();
 
   DataController dataController = Get.find<DataController>();
+
+  // Future<void> fetchEventsByCategory(String categoryName) async {
+  //   QuerySnapshot eventsSnapshot = await FirebaseFirestore.instance
+  //       .collection('events')
+  //       .where('category', isEqualTo: categoryName)
+  //       .get();
+  //   List<DocumentSnapshot> eventDocs = eventsSnapshot.docs;
+
+  //   // Update the filtered events list with fetched events
+  //   dataController.filteredEvents.value = eventDocs;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +47,16 @@ class _CommunityScreenState extends State<CommunityScreen> {
               iconWithTitle(
                 func: () {},
                 text: 'Community',
+
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                child: Text("Let's explore!",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 20, 20, 20),
+                    )),
               ),
               Container(
                 height: 50,
@@ -99,9 +124,12 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   ),
                 ),
               ),
+
               SizedBox(height: 10),
+
+                
               Obx(() => GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 30,
@@ -116,13 +144,15 @@ class _CommunityScreenState extends State<CommunityScreen> {
                           location = '',
                           eventImage = '',
                           tagString = '';
+                          //eventCategory = '';
+
                       eventUserId =
                           dataController.filteredEvents.value[i].get('uid');
                       DocumentSnapshot doc = dataController.allUsers
                           .firstWhere((element) => element.id == eventUserId);
 
                       try {
-                        userName = doc.get('first');
+                        userName = doc.get('first') ?? '';
                       } catch (e) {
                         userName = '';
                       }
@@ -130,24 +160,27 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       print('Username is $userName');
 
                       try {
-                        userImage = doc.get('image');
+                        userImage = doc.get('image') ?? '';
                       } catch (e) {
                         userImage = '';
                       }
 
                       try {
                         location = dataController.filteredEvents.value[i]
-                            .get('location');
+                                .get('location') ??
+                            '';
                       } catch (e) {
                         location = '';
                       }
 
                       try {
-                        List media =
-                            dataController.filteredEvents.value[i].get('media');
+                        List media = dataController.filteredEvents.value[i]
+                                .get('media') ??
+                            '';
 
-                        eventImage = media.firstWhere(
-                            (element) => element['isImage'] == true)['url'];
+                        eventImage = media.firstWhere((element) =>
+                                element['isImage'] == true)['url'] ??
+                            '';
                       } catch (e) {
                         eventImage = '';
                       }
@@ -155,15 +188,17 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       List tags = [];
 
                       try {
-                        tags =
-                            dataController.filteredEvents.value[i].get('tags');
+                        tags = dataController.filteredEvents.value[i]
+                                .get('tags') ??
+                            '';
                       } catch (e) {
                         tags = [];
                       }
 
                       if (tags.length == 0) {
                         tagString = dataController.filteredEvents.value[i]
-                            .get('description');
+                                .get('description') ??
+                            '';
                       } else {
                         tags.forEach((element) {
                           tagString += "#$element, ";
@@ -173,10 +208,18 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       String eventName = '';
                       try {
                         eventName = dataController.filteredEvents.value[i]
-                            .get('event_name');
+                                .get('event_name') ??
+                            '';
                       } catch (e) {
                         eventName = '';
                       }
+                      // try {
+                      //   eventCategory = dataController.filteredEvents.value[i]
+                      //           .get('category') ??
+                      //       '';
+                      // } catch (e) {
+                      //   eventCategory = '';
+                      // }
 
                       return InkWell(
                         onTap: () {
@@ -218,13 +261,13 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 ],
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 3,
                               ),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
                                   eventImage,
-                                  height: 100,
+                                  height: 90,
                                   width: 100,
                                   fit: BoxFit.cover,
                                 ),
@@ -240,7 +283,17 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 2,
+                              ),
+                              // myText(
+                              //   text: eventCategory,
+                              //   style: TextStyle(
+                              //     fontSize: 10,
+                              //     fontWeight: FontWeight.w400,
+                              //   ),
+                              //),
+                              SizedBox(
+                                height: 3,
                               ),
                               myText(
                                 text: tagString,

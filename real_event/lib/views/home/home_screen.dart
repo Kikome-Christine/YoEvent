@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 CustomAppBar(),
                 Text(
-                  "What Going on today",
+                  " You're missing out",
                   style: GoogleFonts.raleway(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),

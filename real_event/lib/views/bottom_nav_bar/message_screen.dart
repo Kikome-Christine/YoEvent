@@ -89,7 +89,7 @@ class _MessageScreenState extends State<MessageScreen> {
                           border: UnderlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(10)),
-                          hintText: "Search",
+                          hintText: "Search ....",
                           prefixIcon: Icon(Icons.search),
                           hintStyle:
                               TextStyle(color: Colors.black, fontSize: 17),
@@ -208,7 +208,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                           width: screenwidth * 0.05,
                                         ),
                                         Image(
-                                          image: AssetImage('assets/img_8.png'),
+                                          image:  AssetImage('assets/img_8.png'),
                                           width: screenwidth * 0.1,
                                           height: screenheight * 0.1,
                                         ),

@@ -244,10 +244,13 @@ class _LoginViewState extends State<LoginView> {
                         if (!formKey.currentState!.validate()) {
                           return;
                         }
-
+                        try{
                         authController.login(
                             email: emailController.text.trim(),
-                            password: passwordController.text.trim());
+                            password: passwordController.text.trim());}
+                            catch (e){
+                              print(e);
+                            }
                       },
                     ),
                   ),
